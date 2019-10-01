@@ -38,7 +38,7 @@ arg_parse() {
 deploy_all() {
     DIR=`dirname "${BASH_SOURCE[0]}"`
     MODULES=(aws-serverless-app-repo-reference-backend aws-serverless-app-repo-reference-ops aws-serverless-app-repo-reference-static-website)
-    echo "Deploying all modules: ${MODULES}"
+    echo "Deploying all modules..."
     for MODULE in ${MODULES[@]}
         do
             ${DIR}/deploy-module.sh -n ${MODULE} -s ${STAGE}

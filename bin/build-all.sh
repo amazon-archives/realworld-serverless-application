@@ -9,4 +9,4 @@ echo "Building all modules..."
 DIR=`dirname "${BASH_SOURCE[0]}"`
 cd ${DIR}/..
 mvn clean package
-aws-serverless-app-repo-reference-static-website/bin/package-static-website.sh
+#aws-serverless-app-repo-reference-static-website/bin/package-static-website.sh
