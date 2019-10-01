@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  This template creates the database resources for the backend service.
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: aws-serverless-app-repo-reference-backend-database
+    Description: >-
+      This template creates the database resources for the backend service.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [github, serverless, sam]
+    HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
+    SemanticVersion: 0.1.1
+    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.1
+    LicenseUrl: ../../../LICENSE
+    ReadmeUrl: ../../README.md
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+Resources:
+  Applications:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: 'userId'
+          AttributeType: 'S'
+        - AttributeName: 'applicationId'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'userId'
+          KeyType: 'HASH'
+        - AttributeName: 'applicationId'
+          KeyType: 'RANGE'
+      StreamSpecification:
+        StreamViewType: 'NEW_AND_OLD_IMAGES'
+      TimeToLiveSpecification:
+        AttributeName: 'ttl'
+        Enabled: true
+      BillingMode: PAY_PER_REQUEST
+      SSESpecification:
+        SSEEnabled: true
+        SSEType: KMS
+      PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true
+
+  # Storing resources names to SSM
+  ApplicationsTableName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/ddb/Applications/TableName"
+      Type: "String"
+      Value: !Ref Applications
+      Description: "Applications Table name"
+  ApplicationsTableArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/ddb/Applications/TableArn"
+      Type: "String"
+      Value: !GetAtt Applications.Arn
+      Description: "Applications Table name"
+  ApplicationsTableStreamArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/ddb/Applications/StreamArn"
+      Type: "String"
+      Value: !GetAtt Applications.StreamArn
+      Description: "Applications DynamoDB Stream ARN"
+  ApplicationsTableStreamName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/ddb/Applications/StreamName"
+      Type: "String"
+      Value:
+        !Select
+          - 2
+          - !Split
+            - '/'
+            - !Select
+              - 5
+              - !Split [':', !GetAtt Applications.StreamArn]
+      Description: "Applications DynamoDB Stream name"
