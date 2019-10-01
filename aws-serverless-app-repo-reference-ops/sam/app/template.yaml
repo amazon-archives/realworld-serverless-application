@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This application creates alarms and dashboards for a backend service.
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+    Default: 'test'
+
+Resources:
+  Alarm:
+    Type: 'AWS::Serverless::Application'
+    Properties:
+      Location: 'alarm.template.yaml'
+      Parameters:
+        Stage: !Ref Stage
+  Dashboard:
+    Type: 'AWS::Serverless::Application'
+    Properties:
+      Location: 'dashboard.template.yaml'
+      Parameters:
+        Stage: !Ref Stage
