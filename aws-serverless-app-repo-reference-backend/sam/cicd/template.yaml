@@ -63,7 +63,7 @@ Resources:
               - dynamodb:TagResource
               - dynamodb:ListTagsOfResource
             Resource:
-              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*
           - Effect: "Allow"
             Action:
               - iam:CreateRole
@@ -77,7 +77,7 @@ Resources:
               - iam:DetachRolePolicy
               - iam:PassRole
             Resource:
-              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
           - Effect: "Allow"
             Action:
               - apigateway:*
@@ -99,14 +99,14 @@ Resources:
               - codedeploy:CreateApplication
               - codedeploy:DeleteApplication
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:*
           - Effect: "Allow"
             Action:
               - codedeploy:CreateDeploymentGroup
               - codedeploy:DeleteDeploymentGroup
               - codedeploy:CreateDeployment
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:*
           - Effect: "Allow"
             Action:
               - kms:Encrypt
@@ -145,7 +145,7 @@ Resources:
               - lambda:AddPermission
               - lambda:RemovePermission
             Resource:
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:*
           - Effect: "Allow"
             Action:
               - logs:DescribeLogGroups
@@ -186,7 +186,7 @@ Resources:
               - cloudwatch:DescribeAlarms
               - cloudwatch:DeleteAlarms
             Resource:
-              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${ApplicationStackName}-*
+              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:*
   # This role is used to deploy backend to CloudFormation.
   # In addition to the permissions from CloudFormationDeployPolicy, it also defines permissions that is required to update the stack in CloudFormation
   DeployRole:
@@ -211,7 +211,7 @@ Resources:
                 Action:
                   - dynamodb:UpdateTable
                 Resource:
-                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${ApplicationStackName}-Database-*
+                  - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*
         - PolicyName: "iam-update-access"
           PolicyDocument:
             Version: "2012-10-17"
@@ -221,7 +221,7 @@ Resources:
                   - iam:UpdateRoleDescription
                   - iam:UpdateRole
                 Resource:
-                  - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/${ApplicationStackName}-Api-*
+                  - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
         - PolicyName: "codedeploy-update-access"
           PolicyDocument:
             Version: "2012-10-17"
@@ -231,13 +231,13 @@ Resources:
                   - codedeploy:UpdateApplication
                   - codedeploy:RegisterApplicationRevision
                 Resource:
-                  - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:${ApplicationStackName}-Api-*
+                  - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:*
               - Effect: "Allow"
                 Action:
                   - codedeploy:UpdateDeploymentGroup
                   - codedeploy:GetDeployment
                 Resource:
-                  - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:${ApplicationStackName}-Api*
+                  - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:*
               - Effect: "Allow"
                 Action:
                   - codedeploy:GetDeploymentConfig
@@ -256,7 +256,7 @@ Resources:
                   - lambda:TagResource
                   - lambda:UntagResource
                 Resource:
-                  - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:${ApplicationStackName}-Api-*
+                  - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:*
         - PolicyName: "cognito-update-access"
           PolicyDocument:
             Version: "2012-10-17"
