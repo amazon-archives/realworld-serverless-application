@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.amazonaws.serverless.apprepo.api.impl.ApplicationsServiceTest
--------------------------------------------------------------------------------
-Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.699 s - in com.amazonaws.serverless.apprepo.api.impl.ApplicationsServiceTest
