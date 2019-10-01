@@ -11,7 +11,6 @@ Here are some project level references:
 
 There is also a [deep dive](https://github.com/honglu/sar-prototype/wiki/backend-module) on aws-serverless-app-repo-reference-backend module.
 
-## License Summary
+## License
 
-This sample code is made available under the Apache 2.0 license. See the LICENSE file.
-     
+This project is licensed under the Apache-2.0 License.     
