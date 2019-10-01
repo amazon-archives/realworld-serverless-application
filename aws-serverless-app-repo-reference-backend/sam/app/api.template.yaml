@@ -161,7 +161,7 @@ Resources:
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: ApiName
-          Value: !Sub SAR-${Stage}
+          Value: !Sub aws-serverless-app-repo-reference-backend-${Stage}
       EvaluationPeriods: 5
       MetricName: 5XXErrors
       Namespace: AWS/ApiGateway
@@ -177,7 +177,7 @@ Resources:
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: ApiName
-          Value: !Sub SAR-${Stage}
+          Value: !Sub aws-serverless-app-repo-reference-backend-${Stage}
       EvaluationPeriods: 5
       MetricName: 4XXErrors
       Namespace: AWS/ApiGateway
@@ -193,7 +193,7 @@ Resources:
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Dimensions:
         - Name: ApiName
-          Value: !Sub SAR-${Stage}
+          Value: !Sub aws-serverless-app-repo-reference-backend-${Stage}
       EvaluationPeriods: 5
       MetricName: Latency
       Namespace: AWS/ApiGateway

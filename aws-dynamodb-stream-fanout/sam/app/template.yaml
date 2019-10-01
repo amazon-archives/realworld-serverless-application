@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  DynamoDBTableName:
+    Type: String
+    Description: DynamoDB Table Name.
+  DynamoDBStreamName:
+    Type: String
+    Description: DynamoDB Stream Name.
+  EventBusName:
+    Type: String
+    Default: "default"
+    Description: Event Bus Name.
+  EventBridgeRetryLimit:
+    Type: Number
+    Default: 1
+    MinValue: 0
+    Description: EventBridge Retry Limit. Default is 1.
+Resources:
+  FanoutLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: '../../target/aws-dynamodb-stream-fanout-0.1.1.jar'
+      Handler: 'com.amazonaws.dynamodb.stream.fanout.lambda.FanoutHandler::handleRequest'
+      MemorySize: 768
+      Timeout: 60
+      Runtime: java8
+      Tracing: Active
+      Environment:
+        Variables:
+          SqsQueueURL: !Ref SqsQueue
+          EBRetryLimit: !Ref EventBridgeRetryLimit
+          EventBusName: !Ref EventBusName
+      Policies:
+        - CloudWatchPutMetricPolicy: {}
+        - DynamoDBStreamReadPolicy:
+            TableName: !Ref DynamoDBTableName
+            StreamName: !Ref DynamoDBStreamName
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt SqsQueue.QueueName
+        - Version: '2012-10-17' # Policy Document
+          Statement:
+            - Effect: Allow
+              Action:
+                - events:PutEvents
+              Resource: '*'
+      Events:
+        FanoutSource:
+          Type: DynamoDB
+          Properties:
+            Stream: !Sub
+              - "arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tableName}/${streamName}"
+              - { tableName: !Ref DynamoDBTableName, streamName: !Ref DynamoDBStreamName }
+            StartingPosition: TRIM_HORIZON
+            BatchSize: 10
+            Enabled: true
+  SqsQueue:
+    Type: "AWS::SQS::Queue"
+
+# Output parameters
+Outputs:
+  FanoutLambdaName:
+    Description: "Fanout Lambda Function Name"
+    Value: !Ref FanoutLambda
+  SqsQueueURL:
+    Description: "Fanout SQS DLQ URL"
+    Value: !Ref SqsQueue

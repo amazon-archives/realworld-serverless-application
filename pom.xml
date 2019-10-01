@@ -22,6 +22,7 @@
   <modules>
     <module>aws-serverless-app-repo-reference-backend</module>
     <module>aws-ssm-caching-client</module>
+    <module>aws-dynamodb-stream-fanout</module>
   </modules>
 
   <dependencyManagement>
