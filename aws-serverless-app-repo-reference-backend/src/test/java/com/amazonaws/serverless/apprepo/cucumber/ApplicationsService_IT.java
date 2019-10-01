@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
  * Junit entry point for cucumber tests.
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/java/com/luhong/apprepo/cucumber/features",
+@CucumberOptions(features = "src/test/java/com/amazonaws/serverless/apprepo/cucumber/features",
       glue = "com.amazonaws.serverless.apprepo.cucumber.steps",
       tags = {"not @NotImplemented"},// Use @NotImplemented tag for scenarios that have not been implemented
       plugin = {"pretty"})
