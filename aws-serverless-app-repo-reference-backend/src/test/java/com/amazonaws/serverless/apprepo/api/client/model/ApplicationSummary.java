@@ -5,14 +5,13 @@ package com.amazonaws.serverless.apprepo.api.client.model;
 
 import com.amazonaws.protocol.ProtocolMarshaller;
 import com.amazonaws.protocol.StructuredPojo;
-import com.amazonaws.serverless.apprepo.api.client.model.transform.ApplicationSummaryMarshaller;
 
 import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/ApplicationSummary" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/ApplicationSummary" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -171,6 +170,6 @@ public class ApplicationSummary implements Serializable, Cloneable, StructuredPo
   @com.amazonaws.annotation.SdkInternalApi
   @Override
   public void marshall(ProtocolMarshaller protocolMarshaller) {
-    ApplicationSummaryMarshaller.getInstance().marshall(this, protocolMarshaller);
+    com.amazonaws.serverless.apprepo.api.client.model.transform.ApplicationSummaryMarshaller.getInstance().marshall(this, protocolMarshaller);
   }
 }

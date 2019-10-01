@@ -8,7 +8,7 @@ import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/GetApplication" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")

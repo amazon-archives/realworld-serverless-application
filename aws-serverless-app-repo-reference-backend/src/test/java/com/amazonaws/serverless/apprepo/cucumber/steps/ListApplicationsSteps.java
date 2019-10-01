@@ -2,7 +2,7 @@ package com.amazonaws.serverless.apprepo.cucumber.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.ApplicationSummary;
 import com.amazonaws.serverless.apprepo.api.client.model.ListApplicationsRequest;
 import com.amazonaws.serverless.apprepo.api.client.model.ListApplicationsResult;
@@ -26,12 +26,12 @@ import org.assertj.core.api.Assertions;
 @Slf4j
 public class ListApplicationsSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
 
   @When("the user lists applications")
   public void the_user_lists_applications() {
     try {
-      sarBackend.listApplications(new ListApplicationsRequest());
+      appRepo.listApplications(new ListApplicationsRequest());
     } catch (Exception e) {
       // do nothing and verify exception in the next step
     }
@@ -40,7 +40,7 @@ public class ListApplicationsSteps {
   @When("the user lists applications with ([1-9][0-9]*)? max items")
   public void the_user_lists_applications_with_max_items(int maxItems) {
     try {
-      sarBackend.listApplications(new ListApplicationsRequest()
+      appRepo.listApplications(new ListApplicationsRequest()
             .maxItems(Integer.toString(maxItems)));
     } catch (Exception e) {
       // do nothing and verify exception in the next step
@@ -52,7 +52,7 @@ public class ListApplicationsSteps {
     Preconditions.checkState(TestEnv.getApplicationList().getNextToken() != null, "Step assumes next token exists.");
 
     try {
-      sarBackend.listApplications(new ListApplicationsRequest()
+      appRepo.listApplications(new ListApplicationsRequest()
             .nextToken(TestEnv.getApplicationList().getNextToken()));
     } catch (Exception e) {
       // do nothing and verify exception in the next step
@@ -64,7 +64,7 @@ public class ListApplicationsSteps {
     // Set a wrong password
     TestEnv.setPassword(UUID.randomUUID().toString());
     try {
-      sarBackend.listApplications(new ListApplicationsRequest());
+      appRepo.listApplications(new ListApplicationsRequest());
     } catch (Exception e) {
       // do nothing and verify exception in the next step
     }
@@ -113,7 +113,7 @@ public class ListApplicationsSteps {
           .description(TestEnv.getApplication().getDescription())
           .creationTime(TestEnv.getApplication().getCreationTime());
 
-    ListApplicationsResult listApplicationsResult = sarBackend.listApplications(new ListApplicationsRequest());
+    ListApplicationsResult listApplicationsResult = appRepo.listApplications(new ListApplicationsRequest());
 
     assertThat(listApplicationsResult.getApplicationList().getApplications())
           .doesNotContain(applicationSummary);

@@ -5,14 +5,13 @@ package com.amazonaws.serverless.apprepo.api.client.model;
 
 import com.amazonaws.auth.RequestSigner;
 import com.amazonaws.opensdk.protect.auth.RequestSignerAware;
-import com.amazonaws.serverless.apprepo.api.client.auth.CognitoAuthorizer;
 
 import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/GetApplication" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -96,7 +95,7 @@ public class GetApplicationRequest extends com.amazonaws.opensdk.BaseRequest imp
 
   @Override
   public Class<? extends RequestSigner> signerType() {
-    return CognitoAuthorizer.class;
+    return com.amazonaws.serverless.apprepo.api.client.auth.CognitoAuthorizer.class;
   }
 
   /**

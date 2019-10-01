@@ -5,14 +5,13 @@ package com.amazonaws.serverless.apprepo.api.client.model;
 
 import com.amazonaws.protocol.ProtocolMarshaller;
 import com.amazonaws.protocol.StructuredPojo;
-import com.amazonaws.serverless.apprepo.api.client.model.transform.CreateApplicationInputMarshaller;
 
 import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/CreateApplicationInput" target="_top">AWS
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplicationInput" target="_top">AWS
  *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -206,6 +205,6 @@ public class CreateApplicationInput implements Serializable, Cloneable, Structur
   @com.amazonaws.annotation.SdkInternalApi
   @Override
   public void marshall(ProtocolMarshaller protocolMarshaller) {
-    CreateApplicationInputMarshaller.getInstance().marshall(this, protocolMarshaller);
+    com.amazonaws.serverless.apprepo.api.client.model.transform.CreateApplicationInputMarshaller.getInstance().marshall(this, protocolMarshaller);
   }
 }

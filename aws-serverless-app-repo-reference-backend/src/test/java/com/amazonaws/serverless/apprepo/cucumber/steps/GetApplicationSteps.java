@@ -2,7 +2,7 @@ package com.amazonaws.serverless.apprepo.cucumber.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.Application;
 import com.amazonaws.serverless.apprepo.api.client.model.GetApplicationRequest;
 import com.amazonaws.serverless.apprepo.api.client.model.GetApplicationResult;
@@ -21,21 +21,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GetApplicationSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
 
   @When("^the user gets the application$")
   public void the_user_gets_the_application() {
     assertThat(TestEnv.getLastException()).isNull();
     Preconditions.checkState(TestEnv.getApplicationId() != null, "Step assumes previous application id exists");
 
-    GetApplicationResult result = sarBackend.getApplication(new GetApplicationRequest().applicationId(TestEnv.getApplicationId()));
+    GetApplicationResult result = appRepo.getApplication(new GetApplicationRequest().applicationId(TestEnv.getApplicationId()));
     TestEnv.setApplication(result.getApplication());
   }
 
   @When("^a user gets a non-existent application$")
   public void a_user_gets_a_non_existent_application() {
     try {
-      sarBackend.getApplication(new GetApplicationRequest()
+      appRepo.getApplication(new GetApplicationRequest()
             .applicationId("applicationId-" + UUID.randomUUID().toString()));
     } catch (Exception e) {
       // do nothing and verify exception in the next step

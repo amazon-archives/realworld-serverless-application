@@ -1,7 +1,7 @@
 package com.amazonaws.serverless.apprepo.cucumber.guice;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
-import com.amazonaws.serverless.apprepo.cucumber.steps.AWSSarBackendRecordingClient;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
+import com.amazonaws.serverless.apprepo.cucumber.steps.AWSServerlessApplicationRepositoryRecordingClient;
 import com.amazonaws.serverless.apprepo.cucumber.steps.CognitoUserManager;
 import com.amazonaws.ssmcachingclient.SsmParameterCachingClient;
 import com.amazonaws.xray.AWSXRay;
@@ -35,9 +35,9 @@ public class ApplicationModule extends AbstractModule {
   @Singleton
   @Inject
   @Provides
-  AWSSarBackend awsSarBackend(final SsmParameterCachingClient ssm, final CognitoUserManager cognitoUserManager) {
+  AWSServerlessApplicationRepository AWSServerlessApplicationRepository(final SsmParameterCachingClient ssm, final CognitoUserManager cognitoUserManager) {
     String endpoint = ssm.getAsString("apigateway/ApplicationsApi/Endpoint");
-    return new AWSSarBackendRecordingClient(AWSSarBackend.builder()
+    return new AWSServerlessApplicationRepositoryRecordingClient(AWSServerlessApplicationRepository.builder()
           .endpoint(endpoint)
           .signer(new CognitoAuthorizerImpl(cognitoUserManager))
           .build());

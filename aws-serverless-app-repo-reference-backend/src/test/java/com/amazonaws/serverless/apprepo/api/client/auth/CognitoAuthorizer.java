@@ -6,19 +6,19 @@ package com.amazonaws.serverless.apprepo.api.client.auth;
 import com.amazonaws.ImmutableRequest;
 import com.amazonaws.SignableRequest;
 import com.amazonaws.auth.RequestSigner;
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackendClientBuilder;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepositoryClientBuilder;
 
 import javax.annotation.Generated;
 
 /**
  * A default implementation of {@link RequestSigner} that puts a generated token into the header. An implementation of
- * this can to be supplied during construction of a {@link AWSSarBackend} via
- * {@link AWSSarBackendClientBuilder#signer(CognitoAuthorizer)} like so
+ * this can to be supplied during construction of a {@link AWSServerlessApplicationRepository} via
+ * {@link AWSServerlessApplicationRepositoryClientBuilder#signer(CognitoAuthorizer)} like so
  *
  * <pre>
  * <code>
- *  AWSSarBackend client = AWSSarBackend.builder().signer((CognitoAuthorizer) request -> "some token").build();
+ *  AWSServerlessApplicationRepository client = AWSServerlessApplicationRepository.builder().signer((CognitoAuthorizer) request -> "some token").build();
  * </code>
  * </pre>
  */

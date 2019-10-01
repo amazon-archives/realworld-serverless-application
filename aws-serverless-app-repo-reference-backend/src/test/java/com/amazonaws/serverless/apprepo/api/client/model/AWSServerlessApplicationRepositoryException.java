@@ -10,10 +10,10 @@ import com.amazonaws.opensdk.internal.BaseException;
 import javax.annotation.Generated;
 
 /**
- * Base exception for all service exceptions thrown by SAR
+ * Base exception for all service exceptions thrown by aws-serverless-app-repo-reference-backend-beta
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class AWSSarBackendException extends com.amazonaws.SdkBaseException implements BaseException {
+public class AWSServerlessApplicationRepositoryException extends com.amazonaws.SdkBaseException implements BaseException {
 
   private static final long serialVersionUID = 1L;
 
@@ -22,18 +22,18 @@ public class AWSSarBackendException extends com.amazonaws.SdkBaseException imple
   private String message;
 
   /**
-   * Constructs a new AWSSarBackendException with the specified error message.
+   * Constructs a new AWSServerlessApplicationRepositoryException with the specified error message.
    *
    * @param message
    *        Describes the error encountered.
    */
-  public AWSSarBackendException(String message) {
+  public AWSServerlessApplicationRepositoryException(String message) {
     super(message);
     this.message = message;
   }
 
   @Override
-  public AWSSarBackendException sdkHttpMetadata(SdkErrorHttpMetadata sdkHttpMetadata) {
+  public AWSServerlessApplicationRepositoryException sdkHttpMetadata(SdkErrorHttpMetadata sdkHttpMetadata) {
     this.sdkHttpMetadata = sdkHttpMetadata;
     return this;
   }

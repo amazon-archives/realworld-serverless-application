@@ -9,7 +9,7 @@ import javax.annotation.Generated;
  *
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class BadRequestException extends AWSSarBackendException {
+public class BadRequestException extends com.amazonaws.serverless.apprepo.api.client.model.AWSServerlessApplicationRepositoryException {
   private static final long serialVersionUID = 1L;
 
   private String errorCode;

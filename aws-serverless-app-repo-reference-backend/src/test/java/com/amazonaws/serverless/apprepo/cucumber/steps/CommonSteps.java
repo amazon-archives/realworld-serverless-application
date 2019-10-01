@@ -2,7 +2,7 @@ package com.amazonaws.serverless.apprepo.cucumber.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.BadRequestException;
 import com.amazonaws.serverless.apprepo.api.client.model.NotFoundException;
 import com.amazonaws.serverless.apprepo.api.client.model.UnauthorizedException;
@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CommonSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
 
   @Then("^the call should fail because the application does not exist$")
   public void the_call_should_fail_because_the_application_does_not_exist() {

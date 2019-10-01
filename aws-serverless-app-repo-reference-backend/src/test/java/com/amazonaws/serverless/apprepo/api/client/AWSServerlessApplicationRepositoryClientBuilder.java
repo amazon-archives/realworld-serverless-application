@@ -15,21 +15,22 @@ import java.net.URI;
 import javax.annotation.Generated;
 
 /**
- * Fluent builder for {@link AWSSarBackend}.
+ * Fluent builder for {@link com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository}.
  *
- * @see AWSSarBackend#builder
+ * @see com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository#builder
  **/
 @NotThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public final class AWSSarBackendClientBuilder extends SdkSyncClientBuilder<AWSSarBackendClientBuilder, AWSSarBackend> {
+public final class AWSServerlessApplicationRepositoryClientBuilder extends
+      SdkSyncClientBuilder<AWSServerlessApplicationRepositoryClientBuilder, AWSServerlessApplicationRepository> {
 
   private static final URI DEFAULT_ENDPOINT = RuntimeHttpUtils.toUri("xxx.execute-api.us-east-1.amazonaws.com", Protocol.HTTPS);
   private static final String DEFAULT_REGION = "us-east-1";
 
   /**
-   * Package private constructor - builder should be created via {@link AWSSarBackend#builder()}
+   * Package private constructor - builder should be created via {@link AWSServerlessApplicationRepository#builder()}
    */
-  AWSSarBackendClientBuilder() {
+  AWSServerlessApplicationRepositoryClientBuilder() {
     super(new ApiGatewayClientConfigurationFactory());
   }
 
@@ -40,7 +41,7 @@ public final class AWSSarBackendClientBuilder extends SdkSyncClientBuilder<AWSSa
    *        the requestSigner implementation to use
    * @return This object for method chaining.
    */
-  public AWSSarBackendClientBuilder signer(CognitoAuthorizer requestSigner) {
+  public AWSServerlessApplicationRepositoryClientBuilder signer(CognitoAuthorizer requestSigner) {
     return signer(requestSigner, CognitoAuthorizer.class);
   }
 
@@ -55,15 +56,16 @@ public final class AWSSarBackendClientBuilder extends SdkSyncClientBuilder<AWSSa
   }
 
   /**
-   * Construct a synchronous implementation of AWSSarBackend using the current builder configuration.
+   * Construct a synchronous implementation of AWSServerlessApplicationRepository using the current builder
+   * configuration.
    *
    * @param params
    *        Current builder configuration represented as a parameter object.
-   * @return Fully configured implementation of AWSSarBackend.
+   * @return Fully configured implementation of AWSServerlessApplicationRepository.
    */
   @Override
-  protected AWSSarBackend build(AwsSyncClientParams params) {
-    return new AWSSarBackendClient(params);
+  protected AWSServerlessApplicationRepository build(AwsSyncClientParams params) {
+    return new AWSServerlessApplicationRepositoryClient(params);
   }
 
   @Override

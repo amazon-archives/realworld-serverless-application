@@ -17,12 +17,12 @@ import com.amazonaws.serverless.apprepo.api.client.model.UpdateApplicationResult
 import javax.annotation.Generated;
 
 /**
- * Abstract implementation of {@code AWSSarBackend}.
+ * Abstract implementation of {@code AWSServerlessApplicationRepository}.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class AbstractAWSSarBackend implements AWSSarBackend {
+public class AbstractAWSServerlessApplicationRepository implements AWSServerlessApplicationRepository {
 
-  protected AbstractAWSSarBackend() {
+  protected AbstractAWSServerlessApplicationRepository() {
   }
 
   @Override

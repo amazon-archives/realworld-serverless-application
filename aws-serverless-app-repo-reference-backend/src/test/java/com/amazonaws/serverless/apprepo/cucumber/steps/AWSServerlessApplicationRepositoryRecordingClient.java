@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.cucumber.steps;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.CreateApplicationInput;
 import com.amazonaws.serverless.apprepo.api.client.model.CreateApplicationRequest;
 import com.amazonaws.serverless.apprepo.api.client.model.CreateApplicationResult;
@@ -18,12 +18,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Client implementation that wraps {@link AWSSarBackend} and records results to {@link TestEnv}.
+ * Client implementation that wraps {@link AWSServerlessApplicationRepository} and records results to {@link TestEnv}.
  */
 @RequiredArgsConstructor
 @Slf4j
-public class AWSSarBackendRecordingClient implements AWSSarBackend {
-  private final AWSSarBackend delegate;
+public class AWSServerlessApplicationRepositoryRecordingClient implements AWSServerlessApplicationRepository {
+  private final AWSServerlessApplicationRepository delegate;
 
   @Override
   public CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest) {

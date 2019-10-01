@@ -9,7 +9,7 @@ import javax.annotation.Generated;
  *
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public class ConflictException extends AWSSarBackendException {
+public class ConflictException extends com.amazonaws.serverless.apprepo.api.client.model.AWSServerlessApplicationRepositoryException {
   private static final long serialVersionUID = 1L;
 
   private String errorCode;

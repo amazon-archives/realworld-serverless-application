@@ -24,7 +24,7 @@ public class DeleteApplicationRequestProtocolMarshaller implements Marshaller<Re
 
   private static final OperationInfo SDK_OPERATION_BINDING = OperationInfo.builder().protocol(Protocol.API_GATEWAY)
         .requestUri("/Prod/applications/{applicationId}").httpMethodName(HttpMethodName.DELETE).hasExplicitPayloadMember(false).hasPayloadMembers(false)
-        .serviceName("AWSSarBackend").build();
+        .serviceName("AWSServerlessApplicationRepository").build();
 
   private final com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl protocolFactory;
 

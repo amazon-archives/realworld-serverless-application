@@ -23,10 +23,10 @@ import com.amazonaws.serverless.apprepo.api.client.model.UpdateApplicationResult
 import javax.annotation.Generated;
 
 /**
- * Interface for accessing AWSSarBackend.
+ * Interface for accessing AWSServerlessApplicationRepository.
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-public interface AWSSarBackend {
+public interface AWSServerlessApplicationRepository {
 
   /**
    * @param createApplicationRequest
@@ -36,8 +36,8 @@ public interface AWSSarBackend {
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
    * @throws ConflictException
-   * @sample AWSSarBackend.CreateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/CreateApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.CreateApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication" target="_top">AWS
    *      API Documentation</a>
    */
   CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest);
@@ -51,8 +51,8 @@ public interface AWSSarBackend {
    * @throws NotFoundException
    * @throws TooManyRequestsException
    * @throws ConflictException
-   * @sample AWSSarBackend.DeleteApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/DeleteApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.DeleteApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS
    *      API Documentation</a>
    */
   DeleteApplicationResult deleteApplication(DeleteApplicationRequest deleteApplicationRequest);
@@ -65,8 +65,8 @@ public interface AWSSarBackend {
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @sample AWSSarBackend.GetApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/GetApplication" target="_top">AWS API
+   * @sample AWSServerlessApplicationRepository.GetApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
    *      Documentation</a>
    */
   GetApplicationResult getApplication(GetApplicationRequest getApplicationRequest);
@@ -78,8 +78,8 @@ public interface AWSSarBackend {
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @sample AWSSarBackend.ListApplications
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/ListApplications" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.ListApplications
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/ListApplications" target="_top">AWS
    *      API Documentation</a>
    */
   ListApplicationsResult listApplications(ListApplicationsRequest listApplicationsRequest);
@@ -93,8 +93,8 @@ public interface AWSSarBackend {
    * @throws NotFoundException
    * @throws TooManyRequestsException
    * @throws ConflictException
-   * @sample AWSSarBackend.UpdateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/UpdateApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.UpdateApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS
    *      API Documentation</a>
    */
   UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest);
@@ -102,8 +102,8 @@ public interface AWSSarBackend {
   /**
    * @return Create new instance of builder with all defaults set.
    */
-  public static AWSSarBackendClientBuilder builder() {
-    return new AWSSarBackendClientBuilder();
+  public static AWSServerlessApplicationRepositoryClientBuilder builder() {
+    return new AWSServerlessApplicationRepositoryClientBuilder();
   }
 
   /**

@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.cucumber.steps;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.DeleteApplicationRequest;
 import com.google.inject.Inject;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SetupAndTeardownSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
   @Inject
   private CognitoUserManager cognitoUserManager;
 
@@ -55,7 +55,7 @@ public class SetupAndTeardownSteps {
   private void tryDeleteApplication(String applicationId) {
     try {
       log.info("Cleaning up application {}", applicationId);
-      sarBackend.deleteApplication(new DeleteApplicationRequest().applicationId(applicationId));
+      appRepo.deleteApplication(new DeleteApplicationRequest().applicationId(applicationId));
     } catch (Throwable t) {
       log.warn("Failed to clean up application {}", applicationId, t);
     }

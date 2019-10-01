@@ -2,7 +2,7 @@ package com.amazonaws.serverless.apprepo.cucumber.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.Application;
 import com.amazonaws.serverless.apprepo.api.client.model.ConflictException;
 import com.amazonaws.serverless.apprepo.api.client.model.CreateApplicationInput;
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CreateApplicationSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
 
   @Given("^a user has an application$")
   @When("^(?:a|the) user creates (?:an|another) application$")
@@ -38,7 +38,7 @@ public class CreateApplicationSteps {
     CreateApplicationRequest request = new CreateApplicationRequest()
           .createApplicationInput(input);
 
-    Application application = sarBackend.createApplication(request).getApplication();
+    Application application = appRepo.createApplication(request).getApplication();
 
     assertThat(TestEnv.getLastException()).isNull();
     assertThat(application.getApplicationId()).isEqualTo(input.getApplicationId());
@@ -148,7 +148,7 @@ public class CreateApplicationSteps {
     assertThat(TestEnv.getLastException()).isNull();
     Preconditions.checkState(TestEnv.getApplicationId() != null, "Step assumes previous application id exists");
 
-    GetApplicationResult result = sarBackend.getApplication(new GetApplicationRequest().applicationId(TestEnv.getApplicationId()));
+    GetApplicationResult result = appRepo.getApplication(new GetApplicationRequest().applicationId(TestEnv.getApplicationId()));
     assertThat(result.getApplication())
           .isNotNull()
           .isEqualTo(TestEnv.getApplication());
@@ -163,7 +163,7 @@ public class CreateApplicationSteps {
 
   private void createApplication(final CreateApplicationRequest request) {
     try {
-      sarBackend.createApplication(request);
+      appRepo.createApplication(request);
     } catch (Exception e) {
       // do nothing and verify exception in the next step
     }

@@ -2,7 +2,7 @@ package com.amazonaws.serverless.apprepo.cucumber.steps;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.client.AWSSarBackend;
+import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.api.client.model.Application;
 import com.amazonaws.serverless.apprepo.api.client.model.BadRequestException;
 import com.amazonaws.serverless.apprepo.api.client.model.UpdateApplicationInput;
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UpdateApplicationSteps {
   @Inject
-  private AWSSarBackend sarBackend;
+  private AWSServerlessApplicationRepository appRepo;
 
   @When("^the user updates the application$")
   public void the_user_updates_the_application() {
@@ -36,7 +36,7 @@ public class UpdateApplicationSteps {
           .applicationId(TestEnv.getApplicationId())
           .updateApplicationInput(input);
 
-    Application application = sarBackend.updateApplication(request).getApplication();
+    Application application = appRepo.updateApplication(request).getApplication();
 
     assertThat(TestEnv.getLastException()).isNull();
     assertThat(application.getApplicationId()).isEqualTo(TestEnv.getApplicationId());
@@ -120,7 +120,7 @@ public class UpdateApplicationSteps {
 
   private void updateApplication(final UpdateApplicationRequest request) {
     try {
-      sarBackend.updateApplication(request);
+      appRepo.updateApplication(request);
     } catch (Exception e) {
       // do nothing and verify exception in the next step
     }

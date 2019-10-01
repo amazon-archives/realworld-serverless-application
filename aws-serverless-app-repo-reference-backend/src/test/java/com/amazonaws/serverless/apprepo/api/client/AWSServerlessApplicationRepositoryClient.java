@@ -15,7 +15,6 @@ import com.amazonaws.protocol.json.JsonClientMetadata;
 import com.amazonaws.protocol.json.JsonErrorResponseMetadata;
 import com.amazonaws.protocol.json.JsonErrorShapeMetadata;
 import com.amazonaws.protocol.json.JsonOperationMetadata;
-import com.amazonaws.serverless.apprepo.api.client.model.AWSSarBackendException;
 import com.amazonaws.serverless.apprepo.api.client.model.BadRequestException;
 import com.amazonaws.serverless.apprepo.api.client.model.ConflictException;
 import com.amazonaws.serverless.apprepo.api.client.model.CreateApplicationRequest;
@@ -47,14 +46,14 @@ import java.util.Arrays;
 import javax.annotation.Generated;
 
 /**
- * Client for accessing AWSSarBackend. All service calls made using this client are blocking, and will not return until
- * the service call completes.
+ * Client for accessing AWSServerlessApplicationRepository. All service calls made using this client are blocking, and
+ * will not return until the service call completes.
  * <p>
  *
  */
 @ThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
-class AWSSarBackendClient implements AWSSarBackend {
+class AWSServerlessApplicationRepositoryClient implements AWSServerlessApplicationRepository {
 
   private final ClientHandler clientHandler;
 
@@ -66,26 +65,27 @@ class AWSSarBackendClient implements AWSSarBackend {
               .withContentTypeOverride("application/json")
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                          ConflictException.class))
+                          com.amazonaws.serverless.apprepo.api.client.model.ConflictException.class))
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                          NotFoundException.class))
+                          com.amazonaws.serverless.apprepo.api.client.model.NotFoundException.class))
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                          TooManyRequestsException.class))
+                          com.amazonaws.serverless.apprepo.api.client.model.TooManyRequestsException.class))
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                          UnauthorizedException.class))
+                          com.amazonaws.serverless.apprepo.api.client.model.UnauthorizedException.class))
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                          BadRequestException.class))
+                          com.amazonaws.serverless.apprepo.api.client.model.BadRequestException.class))
               .addErrorMetadata(
                     new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                          InternalServerErrorException.class))
-              .withBaseServiceExceptionClass(AWSSarBackendException.class));
+                          com.amazonaws.serverless.apprepo.api.client.model.InternalServerErrorException.class))
+              .withBaseServiceExceptionClass(com.amazonaws.serverless.apprepo.api.client.model.AWSServerlessApplicationRepositoryException.class));
 
   /**
-   * Constructs a new client to invoke service methods on AWSSarBackend using the specified parameters.
+   * Constructs a new client to invoke service methods on AWSServerlessApplicationRepository using the specified
+   * parameters.
    *
    * <p>
    * All service calls made using this new client object are blocking, and will not return until the service call
@@ -94,7 +94,7 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @param clientParams
    *        Object providing client parameters.
    */
-  AWSSarBackendClient(AwsSyncClientParams clientParams) {
+  AWSServerlessApplicationRepositoryClient(AwsSyncClientParams clientParams) {
     this.clientHandler = new SdkClientHandler(new ClientHandlerParams().withClientParams(clientParams));
   }
 
@@ -106,8 +106,8 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
    * @throws ConflictException
-   * @sample AWSSarBackend.CreateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/CreateApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.CreateApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication" target="_top">AWS
    *      API Documentation</a>
    */
   @Override
@@ -136,8 +136,8 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @throws NotFoundException
    * @throws TooManyRequestsException
    * @throws ConflictException
-   * @sample AWSSarBackend.DeleteApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/DeleteApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.DeleteApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS
    *      API Documentation</a>
    */
   @Override
@@ -166,8 +166,8 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @sample AWSSarBackend.GetApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/GetApplication" target="_top">AWS API
+   * @sample AWSServerlessApplicationRepository.GetApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
    *      Documentation</a>
    */
   @Override
@@ -194,8 +194,8 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @sample AWSSarBackend.ListApplications
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/ListApplications" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.ListApplications
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/ListApplications" target="_top">AWS
    *      API Documentation</a>
    */
   @Override
@@ -223,8 +223,8 @@ class AWSSarBackendClient implements AWSSarBackend {
    * @throws NotFoundException
    * @throws TooManyRequestsException
    * @throws ConflictException
-   * @sample AWSSarBackend.UpdateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/UpdateApplication" target="_top">AWS
+   * @sample AWSServerlessApplicationRepository.UpdateApplication
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS
    *      API Documentation</a>
    */
   @Override

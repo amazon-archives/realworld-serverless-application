@@ -5,14 +5,13 @@ package com.amazonaws.serverless.apprepo.api.client.model;
 
 import com.amazonaws.protocol.ProtocolMarshaller;
 import com.amazonaws.protocol.StructuredPojo;
-import com.amazonaws.serverless.apprepo.api.client.model.transform.ApplicationListMarshaller;
 
 import java.io.Serializable;
 import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-07-01/ApplicationList" target="_top">AWS API
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/ApplicationList" target="_top">AWS API
  *      Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
@@ -162,6 +161,6 @@ public class ApplicationList implements Serializable, Cloneable, StructuredPojo 
   @com.amazonaws.annotation.SdkInternalApi
   @Override
   public void marshall(ProtocolMarshaller protocolMarshaller) {
-    ApplicationListMarshaller.getInstance().marshall(this, protocolMarshaller);
+    com.amazonaws.serverless.apprepo.api.client.model.transform.ApplicationListMarshaller.getInstance().marshall(this, protocolMarshaller);
   }
 }

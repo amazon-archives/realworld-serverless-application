@@ -23,7 +23,8 @@ import javax.annotation.Generated;
 public class ListApplicationsRequestProtocolMarshaller implements Marshaller<Request<ListApplicationsRequest>, ListApplicationsRequest> {
 
   private static final OperationInfo SDK_OPERATION_BINDING = OperationInfo.builder().protocol(Protocol.API_GATEWAY).requestUri("/Prod/applications")
-        .httpMethodName(HttpMethodName.GET).hasExplicitPayloadMember(false).hasPayloadMembers(false).serviceName("AWSSarBackend").build();
+        .httpMethodName(HttpMethodName.GET).hasExplicitPayloadMember(false).hasPayloadMembers(false).serviceName("AWSServerlessApplicationRepository")
+        .build();
 
   private final com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl protocolFactory;
 
