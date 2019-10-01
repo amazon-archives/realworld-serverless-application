@@ -1,0 +1,296 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This template creates API Gateway and Lambda resources for the backend service.
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: aws-serverless-app-repo-reference-backend-api
+    Description: >-
+      This template creates API Gateway and Lambda resources for the backend service.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [github, serverless, sam]
+    HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
+    SemanticVersion: 0.1.1
+    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.1
+    LicenseUrl: ../../../LICENSE
+    ReadmeUrl: ../../README.md
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+Resources:
+  ApplicationsApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      # Use DefinitionBody for swagger file so that we can use CloudFormation intrinsic functions within the swagger file
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: '../../swagger/api.yaml'
+      StageName: Prod
+      TracingEnabled: true # Enable AWS X-Ray to help debug API requests
+      MethodSettings:
+        - ResourcePath: '/*'
+          HttpMethod: '*'
+          DataTraceEnabled: true
+          LoggingLevel: INFO
+          MetricsEnabled: true
+          ThrottlingRateLimit: 5
+          ThrottlingBurstLimit: 10
+      AccessLogSetting:
+        DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
+        Format: '$context.identity.sourceIp $context.authorizer.principalId [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
+
+  ApplicationsApiUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireLowercase: true
+          RequireNumbers: true
+          TemporaryPasswordValidityDays: 1
+      UsernameAttributes:
+        - email
+      AutoVerifiedAttributes:
+        - email
+      Schema:
+        - AttributeDataType: String
+          Name: email
+          Mutable: false
+
+  ApiLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: '../../target/app-repo-reference-backend-0.1.1.jar'
+      Handler: 'com.amazonaws.serverless.apprepo.container.ApiLambdaHandler::handleRequest'
+      MemorySize: 1536
+      Timeout: 30
+      Runtime: java8
+      Tracing: Active # Enable AWS X-Ray to help debug API requests
+      Environment:
+        Variables:
+          STAGE: !Ref Stage
+      Policies:
+        # Change to use policy template once this change is released: https://github.com/awslabs/serverless-application-model/issues/1071
+        #- SSMParameterReadPolicy:
+        #    ParameterName: !Sub "applications/apprepo/${Stage}/*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - ssm:GetParametersByPath
+                - ssm:GetParameter
+              Resource: !Sub "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/${Stage}/*"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - kms:Encrypt
+                - kms:Decrypt
+              Resource: !GetAtt PaginationKey.Arn
+        - DynamoDBCrudPolicy:
+            TableName: !Sub "{{resolve:ssm:/applications/apprepo/${Stage}/ddb/Applications/TableName:1}}"
+      Events:
+        AnyApi:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApplicationsApi
+            Path: '/*'
+            Method: '*'
+      AutoPublishAlias: live
+      DeploymentPreference:
+        Enabled: true
+        Type: Canary10Percent15Minutes
+        Alarms:
+          - !Ref ApiAvailability
+          - !Ref Api4xxErrors
+          - !Ref ApiLatencyP50
+    DependsOn: PaginationTokenTtlInSeconds
+  PaginationKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: "Encrypt and decrypt pagination tokens for List APIs."
+      EnableKeyRotation: 'true'
+      KeyPolicy:
+        Version: "2012-10-17"
+        Id: key-policy
+        Statement:
+          - Sid: Enable Root User Permissions
+            Effect: Allow
+            Principal:
+              AWS:
+                - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
+            Action: kms:*
+            Resource: '*'
+  # This role allows API Gateway to push execution and access logs to CloudWatch logs
+  ApiGatewayPushToCloudWatchRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Description: "Push logs to CloudWatch logs from API Gateway"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "apigateway.amazonaws.com"
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - !Sub "arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+  ApiAccount:
+    Type: "AWS::ApiGateway::Account"
+    Properties:
+      CloudWatchRoleArn: !GetAtt ApiGatewayPushToCloudWatchRole.Arn
+  ApiAccessLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/apigateway/AccessLog-${ApplicationsApi}
+      RetentionInDays: 3653
+
+  # Alarms used in canary deployment for Applications API.
+  ApiAvailability:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: false
+      AlarmDescription: !Sub 'Api availability is lower than 90%. Only used in canary deployment for Lambda ${ApiLambda}'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub SAR-${Stage}
+      EvaluationPeriods: 5
+      MetricName: 5XXErrors
+      Namespace: AWS/ApiGateway
+      Period: 60
+      Statistic: Average
+      Threshold: 0.1
+      TreatMissingData: notBreaching
+  Api4xxErrors:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: false
+      AlarmDescription: !Sub 'Api 4xx Errors are more than 30%. Only used in canary deployment for Lambda ${ApiLambda}'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub SAR-${Stage}
+      EvaluationPeriods: 5
+      MetricName: 4XXErrors
+      Namespace: AWS/ApiGateway
+      Period: 60
+      Statistic: Average
+      Threshold: 0.3
+      TreatMissingData: notBreaching
+  ApiLatencyP50:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: false
+      AlarmDescription: !Sub 'Api latency p50 is too high. Only used in canary deployment for Lambda ${ApiLambda}'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub SAR-${Stage}
+      EvaluationPeriods: 5
+      MetricName: Latency
+      Namespace: AWS/ApiGateway
+      Period: 60
+      ExtendedStatistic: p50
+      Threshold: 200
+      TreatMissingData: notBreaching
+
+  # Storing resources names to SSM
+  ApiLambdaName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/lambda/ApiLambda/FunctionName"
+      Type: "String"
+      Value: !Ref ApiLambda
+      Description: "ApiLambda function name"
+  ApiLambdaArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/lambda/ApiLambda/FunctionArn"
+      Type: "String"
+      Value: !Ref ApiLambda
+      Description: "ApiLambda function ARN"
+  ApiLambdaVersion:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/lambda/ApiLambda/FunctionVersion"
+      Type: "String"
+      Value: !Ref ApiLambda.Version
+      Description: "ApiLambda function version for alias live"
+  ApiId:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/apigateway/ApplicationsApi/Id"
+      Type: "String"
+      Value: !Ref ApplicationsApi
+      Description: "ApplicationsApi Id"
+  ApiEndpoint:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/apigateway/ApplicationsApi/Endpoint"
+      Type: "String"
+      Value: !Sub "https://${ApplicationsApi}.execute-api.${AWS::Region}.amazonaws.com"
+      Description: "ApplicationsApi endpoint"
+  ApiStage:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/apigateway/ApplicationsApi/Stage"
+      Type: "String"
+      Value: !Ref ApplicationsApi.Stage
+      Description: "ApplicationsApi API Gateway stage"
+  ApiAccessLogGroupName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName"
+      Type: "String"
+      Value: !Ref ApiAccessLogGroup
+      Description: "ApplicationsApi access log CloudWatch log group name"
+  ApiAccessLogGroupArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupArn"
+      Type: "String"
+      Value: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
+      Description: "ApplicationsApi access log CloudWatch log group ARN"
+  ApiUserPoolUserPoolId:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cognito/userpool/ApplicationsApi/Id"
+      Type: "String"
+      Value: !Ref ApplicationsApiUserPool
+      Description: "ApplicationsApi Cognito User Pool ID."
+  ApiUserPoolUserPoolArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cognito/userpool/ApplicationsApi/Arn"
+      Type: "String"
+      Value: !GetAtt ApplicationsApiUserPool.Arn
+      Description: "ApplicationsApi Cognito User Pool ARN."
+  PaginationKeyId:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/kms/pagination/KeyId"
+      Type: "String"
+      Value: !Ref PaginationKey
+      Description: "KMS pagination key Id."
+  PaginationKeyArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/kms/pagination/KeyArn"
+      Type: "String"
+      Value: !GetAtt PaginationKey.Arn
+      Description: "KMS pagination key ARN."
+  PaginationTokenTtlInSeconds:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/configuration/pagination/TtlInSeconds"
+      Type: "String"
+      Value: 360
+      Description: "Pagination token TTL in seconds. The pagination token is used in List APIs."

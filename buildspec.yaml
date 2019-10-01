@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+      nodejs: 8
+    commands:
+      - npm install -g @vue/cli
+  build:
+    commands:
+      - bin/build-all.sh
+      - bin/package-all.sh
