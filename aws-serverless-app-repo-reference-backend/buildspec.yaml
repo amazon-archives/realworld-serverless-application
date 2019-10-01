@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+  build:
+    commands:
+      # Remove the first three lines once aws-ssm-caching-client is published to Maven Central Repository
+      - cd aws-ssm-caching-client
+      - mvn clean install
+      - cd ..
+      - cd aws-serverless-app-repo-reference-backend
+      - mvn clean package -P remote
+artifacts:
+  files:
+    - aws-serverless-app-repo-reference-backend/target/sam/app/packaged-template.yaml
+  discard-paths: yes
