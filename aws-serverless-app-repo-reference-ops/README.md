@@ -1,7 +1,7 @@
 # aws-serverless-app-repo-reference-ops
 aws-serverless-app-repo-reference-ops is an operational module that includes Amazon CloudWatch alarms and dashboard for the service. This module is part of the project (TODO link)
 
-To get started with the project, see [Quick Start](https://github.com/honglu/sar-prototype/wiki/Quick-Start)
+To get started with the project, see [Quick Start](https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/wiki/Quick-Start)
 
 Here are some project level references:
 1. [Overview]()(TODO: blog post link)
