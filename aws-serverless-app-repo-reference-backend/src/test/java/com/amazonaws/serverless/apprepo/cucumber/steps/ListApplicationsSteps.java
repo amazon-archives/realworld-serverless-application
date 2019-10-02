@@ -83,7 +83,8 @@ public class ListApplicationsSteps {
                 .creationTime(app.getCreationTime()))
           .collect(Collectors.toList());
 
-    Assertions.assertThat(TestEnv.getApplicationList().getApplications()).containsAll(expectedApplicationSummaries);
+    assertThat(TestEnv.getApplicationList().getApplications()).containsAll(expectedApplicationSummaries);
+    assertThat(TestEnv.getApplicationList().getNextToken()).isNull();
   }
 
   @Then("([1-9][0-9]*)? applications should be listed")
@@ -122,7 +123,7 @@ public class ListApplicationsSteps {
   @And("the listed applications should be in alphabetical order")
   public void the_listed_applications_should_be_in_alphabetical_order() {
     Preconditions.checkState(TestEnv.getApplicationList() != null, "Step assumes listApplications has been called");
-    Assertions.assertThat(TestEnv.getApplicationList().getApplications())
+    assertThat(TestEnv.getApplicationList().getApplications())
           .isSortedAccordingTo(Comparator.comparing(ApplicationSummary::getApplicationId));
   }
 }

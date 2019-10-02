@@ -242,24 +242,7 @@ public class ApplicationsServiceTest {
   @Test
   public void listApplications_nextToken_exception() throws Exception {
     String userId = UUID.randomUUID().toString();
-    String applicationId = UUID.randomUUID().toString();
     String nextToken = UUID.randomUUID().toString();
-
-    Map<String, AttributeValue> recordMap = keyMap(userId, applicationId);
-
-    Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
-    expressionAttributeValues.put(":u", AttributeValue.builder()
-          .s(userId)
-          .build());
-    QueryRequest expectedQueryRequest = QueryRequest.builder()
-          .consistentRead(true)
-          .tableName(TABLE_NAME)
-          .keyConditionExpression(String.format("%s = :u",
-                ApplicationRecord.USER_ID_ATTRIBUTE_NAME))
-          .expressionAttributeValues(expressionAttributeValues)
-          .limit(ApplicationsService.DEFAULT_LIST_APPLICATIONS_LIMIT)
-          .exclusiveStartKey(recordMap)
-          .build();
 
     when(principal.getName()).thenReturn(userId);
     Mockito.doThrow(InvalidTokenException.class).when(tokenSerializer).deserialize(nextToken);
