@@ -33,7 +33,7 @@ import software.amazon.awssdk.services.kms.KmsClient;
  */
 public class ApiLambdaHandler implements RequestStreamHandler {
   private static final ResourceConfig jerseyApplication = new ResourceConfig()
-        .registerClasses(ApplicationsService.class, ApiExceptionMapper.class)
+        .registerClasses(ApplicationsService.class, ApiExceptionMapper.class, ResponseFilter.class)
         .register(JacksonFeature.class)
         .register(new AbstractBinder() {
           @Override
