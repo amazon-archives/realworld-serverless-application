@@ -163,7 +163,7 @@ Resources:
                 "width": 18,
                 "height": 6,
                 "properties": {
-                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * * \"*\"' as ip, accountId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, authorizerLatency, errorMessage\n| sort responseLatency desc\n| limit 10",
+                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, userId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| sort responseLatency desc\n| limit 10",
                     "region": "${AWS::Region}",
                     "stacked": false,
                     "view": "table",
@@ -177,7 +177,7 @@ Resources:
                 "width": 18,
                 "height": 6,
                 "properties": {
-                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, accountId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| stats count() as count by accountId\n| sort by count desc\n| limit 10",
+                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, userId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| stats count() as count by userId\n| sort by count desc\n| limit 10",
                     "region": "${AWS::Region}",
                     "stacked": false,
                     "view": "table",
@@ -191,7 +191,7 @@ Resources:
                 "width": 18,
                 "height": 6,
                 "properties": {
-                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, accountId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /4\\d\\d/\n| stats count() as count by statusCode\n| sort by count desc\n| limit 10",
+                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, userId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /4\\d\\d/\n| stats count() as count by statusCode\n| sort by count desc\n| limit 10",
                     "region": "${AWS::Region}",
                     "stacked": false,
                     "view": "table",
@@ -205,7 +205,7 @@ Resources:
                 "width": 18,
                 "height": 6,
                 "properties": {
-                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, accountId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /5\\d\\d/\n| stats count() as count by errorMessage\n| sort by count desc\n| limit 10",
+                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, userId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /5\\d\\d/\n| stats count() as count by errorMessage\n| sort by count desc\n| limit 10",
                     "region": "${AWS::Region}",
                     "stacked": false,
                     "view": "table",
@@ -275,7 +275,7 @@ Resources:
                 "width": 18,
                 "height": 6,
                 "properties": {
-                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, accountId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /5\\d\\d/\n| stats count(statusCode) as errorCount by accountId, statusCode\n| sort errorCount desc\n| limit 10",
+                    "query": "SOURCE '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/AccessLog/LogGroupName:1}}' | parse '* * [*] \"* * *\" * * * * * * \"*\"' as ip, userId, dateTimeString, httpVerb, url, protocol, statusCode, requestId, awsEndpointRequestId, xrayTraceId, responseLatency, integrationLatency, errorMessage\n| filter statusCode like /5\\d\\d/\n| stats count(statusCode) as errorCount by userId, statusCode\n| sort errorCount desc\n| limit 10",
                     "region": "${AWS::Region}",
                     "stacked": false,
                     "view": "table",
