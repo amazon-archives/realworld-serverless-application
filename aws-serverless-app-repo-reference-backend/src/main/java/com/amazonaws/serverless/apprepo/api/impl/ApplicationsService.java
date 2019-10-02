@@ -180,9 +180,9 @@ public class ApplicationsService implements ApplicationsApi {
 
     ApplicationList result = new ApplicationList()
           .applications(applicationSummaries);
-    if (queryResponse.lastEvaluatedKey() != null) {
-      result.nextToken(paginationTokenSerializer
-            .serialize(queryResponse.lastEvaluatedKey()));
+    Map<String, AttributeValue> lastEvaluatedKey = queryResponse.lastEvaluatedKey();
+    if (lastEvaluatedKey != null && !lastEvaluatedKey.isEmpty()) {
+      result.nextToken(paginationTokenSerializer.serialize(lastEvaluatedKey));
     }
     return result;
   }
