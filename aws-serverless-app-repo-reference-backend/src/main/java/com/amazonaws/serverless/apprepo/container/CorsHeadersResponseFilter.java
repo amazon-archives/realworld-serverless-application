@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Provider
 @Slf4j
-public class ResponseFilter implements ContainerResponseFilter {
+public class CorsHeadersResponseFilter implements ContainerResponseFilter {
   @Override
   public void filter(ContainerRequestContext requestContext,
                      ContainerResponseContext responseContext) {
