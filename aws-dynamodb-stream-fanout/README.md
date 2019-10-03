@@ -1,1 +1,0 @@
-aws-dynamodb-stream-fanout
