@@ -15,7 +15,7 @@ Parameters:
   Stage:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
-    Default: 'prod'
+    Default: 'beta'
 Resources:
   CD:
     Type: 'AWS::Serverless::Application'
