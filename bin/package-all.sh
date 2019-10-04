@@ -11,9 +11,5 @@
 set -e # fail script on any individual command failing
 
 DIR=`dirname "${BASH_SOURCE[0]}"`
-MODULES=(aws-serverless-app-repo-reference-backend aws-serverless-app-repo-reference-ops aws-serverless-app-repo-reference-static-website)
 echo "Packaging all modules..."
-for MODULE in ${MODULES[@]}
-    do
-        ${DIR}/package.sh -n ${MODULE}
-    done
+${DIR}/package.sh -n .

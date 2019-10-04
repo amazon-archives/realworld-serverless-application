@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This project is an adaptation of the AWS Serverless Application Repository.
+  It's primary objective is to serve as a case study of how to build a production grade service using a combination of serverless technologies and approaches.
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: aws-serverless-app-repo-reference
+    Description: >-
+      This project is an adaptation of the AWS Serverless Application Repository.
+      It's primary objective is to serve as a case study of how to build a production grade service using a combination of serverless technologies and approaches.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [github, serverless, sam]
+    HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
+    SemanticVersion: 0.1.1
+    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.1
+    LicenseUrl: ../../LICENSE
+    ReadmeUrl: ../../README.md
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+    Default: 'test'
+
+Resources:
+  Backend:
+    Type: 'AWS::Serverless::Application'
+    Properties:
+      Location: '../../aws-serverless-app-repo-reference-backend/sam/app/template.yaml'
+      Parameters:
+        Stage: !Ref Stage
+  Ops:
+    Type: 'AWS::Serverless::Application'
+    Properties:
+      Location: '../../aws-serverless-app-repo-reference-ops/sam/app/template.yaml'
+      Parameters:
+        Stage: !Ref Stage
+    DependsOn: Backend
+

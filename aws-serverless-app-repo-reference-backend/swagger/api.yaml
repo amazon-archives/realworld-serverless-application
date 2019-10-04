@@ -295,7 +295,8 @@ definitions:
         pattern: "^[a-zA-Z0-9\\-]{3,128}$"
       description:
         type: string
-        pattern: "^[a-zA-Z0-9\\-]{3,128}$"
+        minLength: 3
+        maxLength: 256
       author:
         type: string
         pattern: "^[a-zA-Z0-9\\-]{1,128}$"
@@ -307,7 +308,8 @@ definitions:
     properties:
       description:
         type: string
-        pattern: "^[a-zA-Z0-9\\-]{1,128}$"
+        minLength: 3
+        maxLength: 256
       author:
         type: string
         pattern: "^[a-zA-Z0-9\\-]{1,128}$"
