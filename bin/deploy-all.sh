@@ -37,12 +37,8 @@ arg_parse() {
 
 deploy_all() {
     DIR=`dirname "${BASH_SOURCE[0]}"`
-    MODULES=(aws-serverless-app-repo-reference-backend aws-serverless-app-repo-reference-ops aws-serverless-app-repo-reference-static-website)
     echo "Deploying all modules..."
-    for MODULE in ${MODULES[@]}
-        do
-            ${DIR}/deploy-module.sh -n ${MODULE} -s ${STAGE}
-        done
+    ${DIR}/deploy.sh -n aws-serverless-app-repo-reference-${STAGE} -t ${DIR}/../target/sam/app/packaged-template.yaml -o "Stage=${STAGE}"
 }
 
 main() {
