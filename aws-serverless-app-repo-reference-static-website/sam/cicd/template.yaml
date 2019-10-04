@@ -157,7 +157,7 @@ Resources:
               - dynamodb:TagResource
               - dynamodb:ListTagsOfResource
             Resource:
-              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - iam:CreateRole
@@ -171,7 +171,7 @@ Resources:
               - iam:DetachRolePolicy
               - iam:PassRole
             Resource:
-              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - apigateway:*
@@ -193,14 +193,14 @@ Resources:
               - codedeploy:CreateApplication
               - codedeploy:DeleteApplication
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - codedeploy:CreateDeploymentGroup
               - codedeploy:DeleteDeploymentGroup
               - codedeploy:CreateDeployment
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - kms:Encrypt
@@ -223,7 +223,7 @@ Resources:
               - lambda:AddPermission
               - lambda:RemovePermission
             Resource:
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - logs:DescribeLogGroups
@@ -264,7 +264,7 @@ Resources:
               - cloudwatch:DescribeAlarms
               - cloudwatch:DeleteAlarms
             Resource:
-              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:aws-serverless-app-repo-reference-backend-*
+              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:aws-serverless-app-repo*
           - Effect: "Allow"
             Action:
               - kms:CreateKey
@@ -350,7 +350,7 @@ Resources:
                   - cloudformation:DeleteStack
                 Resource:
                   - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${ApplicationStackName}-integ-tests*
-                  - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/aws-serverless-app-repo-reference-backend-integ-tests*
+                  - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/aws-serverless-app-repointeg-tests*
         - PolicyName: "cognito-access"
           PolicyDocument:
             Version: "2012-10-17"
