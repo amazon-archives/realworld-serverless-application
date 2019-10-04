@@ -18,6 +18,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of the steps in CreateApplication.feature.
@@ -125,7 +126,7 @@ public class CreateApplicationSteps {
           .createApplicationInput(new CreateApplicationInput()
                 .applicationId("applicationId-" + UUID.randomUUID().toString())
                 .author("author-" + UUID.randomUUID().toString())
-                .description("description?" + UUID.randomUUID().toString())
+                .description(StringUtils.repeat("a", 300))
                 .homePageUrl("https://github.com/awslabs/" + UUID.randomUUID().toString()));
 
     createApplication(request);
