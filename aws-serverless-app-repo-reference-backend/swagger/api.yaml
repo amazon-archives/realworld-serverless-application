@@ -25,7 +25,14 @@ x-amazon-apigateway-gateway-responses:
   BAD_REQUEST_BODY:
     responseTemplates:
       application/json: '{"errorCode": "BadRequestBody", "message": "$context.error.validationErrorString"}'
-
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+  DEFAULT_4XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+  DEFAULT_5XX:
+    responseParameters:
+      gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
 securityDefinitions:
   cognitoAuthorizer:
     type: apiKey
