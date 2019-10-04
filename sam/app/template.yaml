@@ -38,4 +38,11 @@ Resources:
       Parameters:
         Stage: !Ref Stage
     DependsOn: Backend
+  Website:
+    Type: 'AWS::Serverless::Application'
+    Properties:
+      Location: '../../aws-serverless-app-repo-reference-static-website/sam/app/template.yaml'
+      Parameters:
+        Stage: !Ref Stage
+    DependsOn: Backend
 
