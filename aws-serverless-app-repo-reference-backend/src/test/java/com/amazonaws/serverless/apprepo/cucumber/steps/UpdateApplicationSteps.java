@@ -15,6 +15,7 @@ import java.util.UUID;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Implementation of the steps in UpdateApplication.feature.
@@ -91,7 +92,7 @@ public class UpdateApplicationSteps {
           .applicationId(TestEnv.getApplicationId())
           .updateApplicationInput(new UpdateApplicationInput()
                 .author("author-" + UUID.randomUUID().toString())
-                .description("description?" + UUID.randomUUID().toString())
+                .description(StringUtils.repeat("a", 300))
                 .homePageUrl("https://github.com/awslabs/" + UUID.randomUUID().toString()));
 
     updateApplication(request);
