@@ -128,99 +128,6 @@ Resources:
               - cognito-idp:DeleteUserPoolClient
             Resource:
               - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
-  CloudFormationDeployPolicyWebsiteIntegTests:
-    Type: AWS::IAM::Policy
-    Properties:
-      Roles:
-        - !Ref IntegTestsRole
-      PolicyName: "deploy-website-create-delete-access"
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: "Allow"
-            Action:
-              - cloudformation:CreateChangeSet
-            Resource:
-              - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/Serverless-2016-10-31
-              - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/Include
-          - Effect: "Allow"
-            Action:
-              - lambda:CreateFunction
-              - lambda:GetFunctionConfiguration
-              - lambda:DeleteFunction
-              - lambda:CreateAlias
-              - lambda:GetAlias
-              - lambda:DeleteAlias
-              - lambda:PublishVersion
-              - lambda:ListVersionsByFunction
-              - lambda:AddPermission
-              - lambda:RemovePermission
-              - lambda:InvokeFunction
-            Resource:
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:integ-tests*
-          - Effect: "Allow"
-            Action:
-              - lambda:RemoveLayerVersionPermission
-              - lambda:AddLayerVersionPermission
-              - lambda:PublishLayerVersion
-            Resource:
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:layer:s3-deployment
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:layer:s3-deployment:*
-          - Effect: "Allow"
-            Action:
-              - s3:DeleteBucket
-              - s3:PutBucketWebsite
-              - s3:CreateBucket
-              - s3:GetBucketLocation
-              - s3:GetBucketAcl
-              - s3:DeleteObject
-              - s3:ListBucket
-            Resource:
-              - !Sub arn:${AWS::Partition}:s3:::integ-tests*
-              - !Sub arn:${AWS::Partition}:s3:::integ-tests*/*
-          - Effect: "Allow"
-            Action:
-              - "s3:GetObject"
-            Resource:
-              - !Sub arn:${AWS::Partition}:s3:::awsserverlessrepo-changesets*/*
-          - Effect: "Allow"
-            Action:
-              - serverlessrepo:GetCloudFormationTemplate
-              - serverlessrepo:CreateCloudFormationTemplate
-            Resource:
-              - arn:aws:serverlessrepo:us-east-1:375983427419:applications/deploy-to-s3
-          - Effect: "Allow"
-            Action:
-              - ssm:PutParameter
-              - ssm:DeleteParameter
-              - ssm:GetParameter
-              - ssm:GetParameters
-              - ssm:GetParametersByPath
-              - ssm:AddTagsToResource
-              - ssm:RemoveTagsFromResource
-            Resource:
-              - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/*
-          - Effect: "Allow"
-            Action:
-              - iam:CreateRole
-              - iam:DeleteRole
-              - iam:GetRole
-              - iam:TagRole
-              - iam:PutRolePolicy
-              - iam:GetRolePolicy
-              - iam:DeleteRolePolicy
-              - iam:AttachRolePolicy
-              - iam:DetachRolePolicy
-              - iam:PassRole
-            Resource:
-              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/integ-tests*
-          - Effect: "Allow"
-            Action:
-              - cognito-idp:CreateUserPoolClient
-              - cognito-idp:DeleteUserPoolClient
-            Resource:
-              - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
-
   # This policy defines the minimum IAM permissions required to Create and Delete a stack for aws-serverless-app-repo-reference-backend module into CloudFormation
   CloudFormationDeployPolicyBackend:
     Type: AWS::IAM::Policy
@@ -249,7 +156,7 @@ Resources:
               - dynamodb:TagResource
               - dynamodb:ListTagsOfResource
             Resource:
-              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/integ-tests*
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*
           - Effect: "Allow"
             Action:
               - iam:CreateRole
@@ -263,7 +170,7 @@ Resources:
               - iam:DetachRolePolicy
               - iam:PassRole
             Resource:
-              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/integ-tests*
+              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
           - Effect: "Allow"
             Action:
               - apigateway:*
@@ -285,14 +192,14 @@ Resources:
               - codedeploy:CreateApplication
               - codedeploy:DeleteApplication
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:integ-tests*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:*
           - Effect: "Allow"
             Action:
               - codedeploy:CreateDeploymentGroup
               - codedeploy:DeleteDeploymentGroup
               - codedeploy:CreateDeployment
             Resource:
-              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:integ-tests*
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:*
           - Effect: "Allow"
             Action:
               - kms:Encrypt
@@ -315,7 +222,7 @@ Resources:
               - lambda:AddPermission
               - lambda:RemovePermission
             Resource:
-              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:integ-tests*
+              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:*
           - Effect: "Allow"
             Action:
               - logs:DescribeLogGroups
@@ -356,7 +263,7 @@ Resources:
               - cloudwatch:DescribeAlarms
               - cloudwatch:DeleteAlarms
             Resource:
-              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:integ-tests*
+              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:*
           - Effect: "Allow"
             Action:
               - kms:CreateKey
