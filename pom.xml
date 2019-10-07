@@ -6,7 +6,7 @@
 
   <groupId>com.amazonaws.serverless</groupId>
   <artifactId>app-repo-reference-implementation</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <packaging>pom</packaging>
 
   <name>aws-serverless-app-repo-reference-implementation</name>

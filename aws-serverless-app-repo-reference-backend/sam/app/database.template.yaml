@@ -12,8 +12,8 @@ Metadata:
     SpdxLicenseId: Apache-2.0
     Labels: [github, serverless, sam]
     HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
-    SemanticVersion: 0.1.4
-    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.4
+    SemanticVersion: 0.1.5
+    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.5
     LicenseUrl: ../../../LICENSE
     ReadmeUrl: ../../README.md
 
