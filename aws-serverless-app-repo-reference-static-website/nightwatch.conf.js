@@ -1,10 +1,14 @@
 const launchUrl = process.env.WEBSITE_URL || 'http://localhost:8080';
-
 module.exports = {
   src_folders: ['tests/e2e/specs'],
   output_folder: 'tests/e2e/reports',
   page_objects_path: 'tests/e2e/page-objects',
   test_settings: {
+    default: {
+      globals: {
+        waitForConditionTimeout: 30000,
+      },
+    },
     chrome: {
       launch_url: launchUrl,
       webdriver: {
