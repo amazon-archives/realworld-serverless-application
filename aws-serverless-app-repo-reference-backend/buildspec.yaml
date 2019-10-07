@@ -11,7 +11,7 @@ phases:
       - mvn clean install
       - cd ..
       - cd aws-serverless-app-repo-reference-backend
-      - mvn clean package -P remote
+      - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
 artifacts:
   files:
     - aws-serverless-app-repo-reference-backend/target/sam/app/packaged-template.yaml

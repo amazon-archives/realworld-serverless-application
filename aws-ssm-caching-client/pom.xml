@@ -43,6 +43,12 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
             </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -116,5 +122,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
