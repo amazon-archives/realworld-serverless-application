@@ -11,7 +11,7 @@ phases:
     commands:
       - TEST_STAGE=integ-tests-`date +%s`
       - ./aws-serverless-app-repo-reference-static-website/bin/package-static-website.sh
-      - mvn clean package -pl aws-serverless-app-repo-reference-backend -DpackageBucket=${PACKAGE_BUCKET}
+      - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
       - ./bin/deploy.sh -n $TEST_STAGE-backend -t aws-serverless-app-repo-reference-backend/target/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
       - ./bin/package.sh -n aws-serverless-app-repo-reference-static-website
       - ./bin/deploy.sh -n $TEST_STAGE-website -t aws-serverless-app-repo-reference-static-website/target/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
