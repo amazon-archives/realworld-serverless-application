@@ -9,5 +9,6 @@ phases:
       - npm install -g @vue/cli
   build:
     commands:
-      - bin/build-all.sh
-      - bin/package-all.sh
+      - npm install --prefix aws-serverless-app-repo-reference-static-website
+      - npm run ci --prefix aws-serverless-app-repo-reference-static-website
+      - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
