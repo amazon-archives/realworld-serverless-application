@@ -12,6 +12,5 @@ phases:
       - cd ..
       - cd aws-serverless-app-repo-reference-backend
       - STAGE=integ-tests-`date +%s`
-      - STACK_NAME=aws-serverless-app-repo-reference-backend-${STAGE}
-      - mvn clean verify -P remote -Dintegtests.stack.name=${STACK_NAME} -Dintegtests.stage=${STAGE} -Dintegtests.env.stack.name=${STACK_NAME}-env -DskipIntegTests=false
+      - mvn clean verify -Dintegtests.stage=${STAGE}
 

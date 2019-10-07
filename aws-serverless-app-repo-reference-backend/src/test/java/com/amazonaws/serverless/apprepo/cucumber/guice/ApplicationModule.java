@@ -58,7 +58,9 @@ public class ApplicationModule extends AbstractModule {
   @Inject
   @Provides
   CognitoUserManager cognitoUserManager(final SsmParameterCachingClient ssm) {
-    String clientId = ssm.getAsString(String.format("cognito/userpoolclient/IntegTest/%s/Id", System.getProperty("integtests.env.stack.name")));
+    String clientId = ssm.getAsString(String.format(
+            "cognito/userpoolclient/IntegTest/aws-serverless-app-repo-reference-backend-%s-env/Id",
+            System.getProperty("integtests.stage")));
     String userPoolId = ssm.getAsString("cognito/userpool/ApplicationsApi/Id");
     return new CognitoUserManager(CognitoIdentityProviderClient.builder()
           .httpClientBuilder(UrlConnectionHttpClient.builder())
