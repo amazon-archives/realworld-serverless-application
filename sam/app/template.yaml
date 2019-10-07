@@ -46,3 +46,9 @@ Resources:
         Stage: !Ref Stage
     DependsOn: Backend
 
+Outputs:
+  WebsiteUrl:
+    Description: The static website URL for the service.
+    Value: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/s3/WebsiteBucket/WebsiteURL:1}}'
+
+
