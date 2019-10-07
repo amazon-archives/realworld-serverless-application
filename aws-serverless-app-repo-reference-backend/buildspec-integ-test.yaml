@@ -12,5 +12,5 @@ phases:
       - cd ..
       - cd aws-serverless-app-repo-reference-backend
       - STAGE=integ-tests-`date +%s`
-      - mvn clean verify -Dintegtests.stage=${STAGE}
+      - mvn clean verify -Dintegtests.stage=${STAGE} -DpackageBucket=${PACKAGE_BUCKET}
 
