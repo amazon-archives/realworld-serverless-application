@@ -12,8 +12,8 @@ Metadata:
     SpdxLicenseId: Apache-2.0
     Labels: [github, serverless, sam]
     HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
-    SemanticVersion: 0.1.1
-    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.1
+    SemanticVersion: 0.1.4
+    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.4
     LicenseUrl: ../../../LICENSE
     ReadmeUrl: ../../README.md
 
@@ -69,7 +69,7 @@ Resources:
   ApiLambda:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: '../../target/app-repo-reference-backend-0.1.1.jar'
+      CodeUri: '../../target/app-repo-reference-backend-0.1.4.jar'
       Handler: 'com.amazonaws.serverless.apprepo.container.ApiLambdaHandler::handleRequest'
       MemorySize: 1536
       Timeout: 30

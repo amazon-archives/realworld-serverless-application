@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.amazonaws.serverless</groupId>
   <artifactId>app-repo-reference-backend</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.4</version>
 
   <name>aws-serverless-app-repo-reference-backend</name>
   <url>https://github.com/awslabs/aws-serverless-app-repo-reference-implementation</url>
