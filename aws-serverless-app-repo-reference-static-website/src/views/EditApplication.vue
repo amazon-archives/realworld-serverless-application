@@ -92,8 +92,10 @@ export default {
         applicationId: this.$route.params.id,
         description: this.form.description,
         author: this.form.author,
-        homePageUrl: this.form.homePageUrl,
       };
+      if (this.form.homePageUrl) {
+        request.homePageUrl = this.form.homePageUrl;
+      }
       this.$store.dispatch(UPDATE_APPLICATION, request)
         .then(() => {
           this.$router.push({

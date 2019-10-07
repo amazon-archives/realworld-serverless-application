@@ -56,7 +56,8 @@ module.exports = {
       .setValue('@authorInput', testApp.author)
       .setValue('@homePageUrlInput', testApp.homePage)
       .setValue('@descriptionInput', testApp.description)
-      .click('@publishBtn');
+      .click('@publishBtn')
+      .waitForElementNotPresent('@publishBtn');
 
     browser.assert.urlEquals(`${browser.launchUrl}/#/applications/${testApp.name}`, 'Should redirect to the App details page');
   },
@@ -93,7 +94,8 @@ module.exports = {
       .setValue('@homePageUrlInput', modifiedHomePage)
       .clearValue('@descriptionInput')
       .setValue('@descriptionInput', modifiedDescription)
-      .click('@saveBtn');
+      .click('@saveBtn')
+      .waitForElementNotPresent('@saveBtn');
 
     browser.assert.urlEquals(`${browser.launchUrl}/#/applications/${testApp.name}`, 'Should redirect to the App details page');
     browser.page.appDetails().assert.containsText('@details', modifiedAuthor);
@@ -109,7 +111,8 @@ module.exports = {
       .waitForElementVisible('@deleteBtn')
       .click('@deleteBtn')
       .waitForElementVisible('@deleteModal')
-      .click('@confirmDeleteBtn');
+      .click('@confirmDeleteBtn')
+      .waitForElementNotPresent('@confirmDeleteBtn');
 
     browser.assert.urlEquals(`${browser.launchUrl}/#/applications`, 'Should redirect to My applications page');
     browser.page.myApps().expect.element('@appsTable').text.to.not.contain(testApp.name, 'Deleted app should no longer be listed on My applications');

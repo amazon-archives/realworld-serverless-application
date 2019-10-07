@@ -87,7 +87,15 @@ export default {
   methods: {
     onSubmit() {
       this.error = null;
-      this.$store.dispatch(CREATE_APPLICATION, this.form)
+      const payload = {
+        applicationId: this.form.applicationId,
+        author: this.form.author,
+        description: this.form.description,
+      };
+      if (this.form.homePageUrl) {
+        payload.homePageUrl = this.form.homePageUrl;
+      }
+      this.$store.dispatch(CREATE_APPLICATION, payload)
         .then(() => {
           this.$router.push({
             name: 'view-application',
