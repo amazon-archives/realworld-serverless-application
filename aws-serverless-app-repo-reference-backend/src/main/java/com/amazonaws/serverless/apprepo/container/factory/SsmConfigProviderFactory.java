@@ -3,7 +3,7 @@ package com.amazonaws.serverless.apprepo.container.factory;
 import com.amazonaws.serverless.apprepo.container.config.ConfigProvider;
 import com.amazonaws.serverless.apprepo.container.config.Env;
 import com.amazonaws.serverless.apprepo.container.config.SsmConfigProvider;
-import com.amazonaws.ssmcachingclient.SsmParameterCachingClient;
+import software.amazon.serverless.ssmcachingclient.SsmParameterCachingClient;
 
 import java.time.Duration;
 

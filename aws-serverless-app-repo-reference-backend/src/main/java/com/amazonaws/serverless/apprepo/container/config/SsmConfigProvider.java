@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.container.config;
 
-import com.amazonaws.ssmcachingclient.SsmParameterCachingClient;
+import software.amazon.serverless.ssmcachingclient.SsmParameterCachingClient;
 
 import java.time.Duration;
 

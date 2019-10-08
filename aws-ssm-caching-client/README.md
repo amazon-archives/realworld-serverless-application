@@ -10,7 +10,7 @@ Maven:
 
 ```xml
 <dependency>
-  <groupId>com.amazonaws</groupId>
+  <groupId>software.amazon.serverless</groupId>
   <artifactId>aws-ssm-java-caching-client</artifactId>
   <version>1.0.0</version>
 </dependency>
@@ -20,7 +20,7 @@ Gradle:
 
 ```gradle
 dependencies {
-  compile 'com.amazonaws:aws-ssm-java-caching-client:1.0.0'
+  compile 'software.amazon.serverless:aws-ssm-java-caching-client:1.0.0'
 }
 ```
 
