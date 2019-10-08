@@ -96,7 +96,7 @@
       <version>2.3.5</version>
     </dependency>
     <dependency>
-      <groupId>com.amazonaws</groupId>
+      <groupId>software.amazon.serverless</groupId>
       <artifactId>aws-ssm-caching-client</artifactId>
       <version>0.0.1</version>
     </dependency>
