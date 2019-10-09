@@ -1,20 +1,20 @@
 package com.amazonaws.serverless.apprepo.api.impl;
 
-import com.amazonaws.serverless.apprepo.api.ApplicationsApi;
 import com.amazonaws.serverless.apprepo.api.exception.BadRequestApiException;
 import com.amazonaws.serverless.apprepo.api.exception.ConflictApiException;
 import com.amazonaws.serverless.apprepo.api.exception.NotFoundApiException;
 import com.amazonaws.serverless.apprepo.api.impl.pagination.InvalidTokenException;
 import com.amazonaws.serverless.apprepo.api.impl.pagination.TokenSerializer;
-import com.amazonaws.serverless.apprepo.api.model.Application;
-import com.amazonaws.serverless.apprepo.api.model.ApplicationList;
-import com.amazonaws.serverless.apprepo.api.model.ApplicationSummary;
-import com.amazonaws.serverless.apprepo.api.model.BadRequestException;
-import com.amazonaws.serverless.apprepo.api.model.ConflictException;
-import com.amazonaws.serverless.apprepo.api.model.CreateApplicationInput;
-import com.amazonaws.serverless.apprepo.api.model.NotFoundException;
-import com.amazonaws.serverless.apprepo.api.model.UpdateApplicationInput;
 import com.amazonaws.serverless.apprepo.container.config.ConfigProvider;
+import io.swagger.api.ApplicationsApi;
+import io.swagger.model.Application;
+import io.swagger.model.ApplicationList;
+import io.swagger.model.ApplicationSummary;
+import io.swagger.model.BadRequestException;
+import io.swagger.model.ConflictException;
+import io.swagger.model.CreateApplicationInput;
+import io.swagger.model.NotFoundException;
+import io.swagger.model.UpdateApplicationInput;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -98,7 +98,7 @@ public class ApplicationsService implements ApplicationsApi {
   }
 
   @Override
-  public Application createApplication(CreateApplicationInput createApplicationInput) {
+  public Application createApplication(final CreateApplicationInput createApplicationInput) {
     log.info("Creating application with input {}", createApplicationInput);
     ApplicationRecord applicationRecord = modelMapper.map(createApplicationInput,
           ApplicationRecord.class);
@@ -124,7 +124,7 @@ public class ApplicationsService implements ApplicationsApi {
   }
 
   @Override
-  public void deleteApplication(String applicationId) {
+  public void deleteApplication(final String applicationId) {
     log.info("Deleting application {}", applicationId);
     ApplicationRecord applicationRecord = loadApplication(applicationId);
     Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
@@ -188,8 +188,8 @@ public class ApplicationsService implements ApplicationsApi {
   }
 
   @Override
-  public Application updateApplication(String applicationId,
-                                       UpdateApplicationInput updateApplicationInput) {
+  public Application updateApplication(final UpdateApplicationInput updateApplicationInput,
+                                       final String applicationId) {
     log.info("Updating application {} with input {}", applicationId, updateApplicationInput);
     if (updateApplicationInput.getHomePageUrl() == null
           && updateApplicationInput.getDescription() == null

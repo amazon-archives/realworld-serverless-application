@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.api.exception;
 
-import com.amazonaws.serverless.apprepo.api.model.InternalServerErrorException;
+import io.swagger.model.InternalServerErrorException;
 
 import javax.ws.rs.core.Response;
 

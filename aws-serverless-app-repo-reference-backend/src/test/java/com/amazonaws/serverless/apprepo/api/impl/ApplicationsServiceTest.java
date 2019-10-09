@@ -12,12 +12,12 @@ import com.amazonaws.serverless.apprepo.api.exception.ConflictApiException;
 import com.amazonaws.serverless.apprepo.api.exception.NotFoundApiException;
 import com.amazonaws.serverless.apprepo.api.impl.pagination.InvalidTokenException;
 import com.amazonaws.serverless.apprepo.api.impl.pagination.TokenSerializer;
-import com.amazonaws.serverless.apprepo.api.model.Application;
-import com.amazonaws.serverless.apprepo.api.model.ApplicationList;
-import com.amazonaws.serverless.apprepo.api.model.ApplicationSummary;
-import com.amazonaws.serverless.apprepo.api.model.CreateApplicationInput;
-import com.amazonaws.serverless.apprepo.api.model.UpdateApplicationInput;
 import com.amazonaws.serverless.apprepo.container.config.ConfigProvider;
+import io.swagger.model.Application;
+import io.swagger.model.ApplicationList;
+import io.swagger.model.ApplicationSummary;
+import io.swagger.model.CreateApplicationInput;
+import io.swagger.model.UpdateApplicationInput;
 
 import java.security.Principal;
 import java.time.Clock;
@@ -327,7 +327,7 @@ public class ApplicationsServiceTest {
   @Test
   public void updateApplication_noUpdate() {
     String applicationId = UUID.randomUUID().toString();
-    assertThatThrownBy(() -> service.updateApplication(applicationId, new UpdateApplicationInput()))
+    assertThatThrownBy(() -> service.updateApplication(new UpdateApplicationInput(), applicationId))
           .isInstanceOf(BadRequestApiException.class);
   }
 
@@ -359,7 +359,7 @@ public class ApplicationsServiceTest {
           .conditionExpression("version = :v")
           .build();
 
-    Application application = service.updateApplication(applicationId, input);
+    Application application = service.updateApplication(input, applicationId);
     ArgumentCaptor<UpdateItemRequest> updateItemRequestArgumentCaptor = ArgumentCaptor.forClass(UpdateItemRequest.class);
     verify(dynamodb).updateItem(updateItemRequestArgumentCaptor.capture());
 
@@ -397,7 +397,7 @@ public class ApplicationsServiceTest {
           .conditionExpression("version = :v")
           .build();
 
-    Application application = service.updateApplication(applicationId, input);
+    Application application = service.updateApplication(input, applicationId);
     ArgumentCaptor<UpdateItemRequest> updateItemRequestArgumentCaptor = ArgumentCaptor.forClass(UpdateItemRequest.class);
     verify(dynamodb).updateItem(updateItemRequestArgumentCaptor.capture());
 
@@ -435,7 +435,7 @@ public class ApplicationsServiceTest {
           .conditionExpression("version = :v")
           .build();
 
-    Application application = service.updateApplication(applicationId, input);
+    Application application = service.updateApplication(input, applicationId);
     ArgumentCaptor<UpdateItemRequest> updateItemRequestArgumentCaptor = ArgumentCaptor.forClass(UpdateItemRequest.class);
     verify(dynamodb).updateItem(updateItemRequestArgumentCaptor.capture());
 

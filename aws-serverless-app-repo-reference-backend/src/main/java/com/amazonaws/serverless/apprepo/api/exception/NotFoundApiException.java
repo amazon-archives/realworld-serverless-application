@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.api.exception;
 
-import com.amazonaws.serverless.apprepo.api.model.NotFoundException;
+import io.swagger.model.NotFoundException;
 
 import javax.ws.rs.core.Response;
 

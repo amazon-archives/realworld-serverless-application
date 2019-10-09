@@ -1,10 +1,9 @@
 package com.amazonaws.serverless.apprepo.api.exception;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.amazonaws.serverless.apprepo.api.model.InternalServerErrorException;
-import com.amazonaws.serverless.apprepo.api.model.NotFoundException;
+import io.swagger.model.InternalServerErrorException;
+import io.swagger.model.NotFoundException;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
