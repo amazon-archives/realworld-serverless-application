@@ -1,11 +1,10 @@
 package com.amazonaws.serverless.apprepo.container.config;
 
-import com.amazonaws.ssmcachingclient.SsmParameterCachingClient;
-
 import java.time.Duration;
 
 import lombok.RequiredArgsConstructor;
 import software.amazon.awssdk.services.ssm.model.ParameterNotFoundException;
+import software.amazon.serverless.ssmcachingclient.SsmParameterCachingClient;
 
 /**
  * Provide config value from AWS SSM.
