@@ -1,4 +1,4 @@
-package com.amazonaws.ssmcachingclient;
+package software.amazon.serverless.ssmcachingclient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
