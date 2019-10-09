@@ -24,7 +24,7 @@ Resources:
       BucketEncryption:
         ServerSideEncryptionConfiguration:
           - ServerSideEncryptionByDefault:
-              SSEAlgorithm: AES256
+              SSEAlgorithm: aws:kms
 
   FirehoseLogGroup:
     Type: AWS::Logs::LogGroup
