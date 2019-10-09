@@ -133,6 +133,8 @@ Resources:
             Action:
               - s3:CreateBucket
               - s3:DeleteBucket
+              - s3:GetEncryptionConfiguration
+              - s3:PutEncryptionConfiguration
             Resource:
               - !Sub arn:${AWS::Partition}:s3:::*
           - Effect: Allow
