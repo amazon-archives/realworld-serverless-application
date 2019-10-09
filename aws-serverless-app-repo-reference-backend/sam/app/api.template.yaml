@@ -21,6 +21,9 @@ Parameters:
   Stage:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
+Conditions:
+  IsProd:
+    !Equals [!Ref Stage, "prod"]
 Resources:
   ApplicationsApi:
     Type: AWS::Serverless::Api
@@ -36,7 +39,8 @@ Resources:
       MethodSettings:
         - ResourcePath: '/*'
           HttpMethod: '*'
-          DataTraceEnabled: true
+          # Disable data trace in production to avoid logging customer sensitive information from requests and responses
+          DataTraceEnabled: !If [IsProd, false, true]
           LoggingLevel: INFO
           MetricsEnabled: true
           ThrottlingRateLimit: 5
@@ -44,6 +48,7 @@ Resources:
       AccessLogSetting:
         DestinationArn: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:${ApiAccessLogGroup}'
         Format: '$context.identity.sourceIp $context.authorizer.claims.sub [$context.requestTime] "$context.httpMethod $context.resourcePath $context.protocol" $context.status $context.requestId $context.awsEndpointRequestId $context.xrayTraceId $context.responseLatency $context.integrationLatency "$context.error.message"'
+      OpenApiVersion: '3.0'
       Cors:
         AllowOrigin: "'*'"
         AllowHeaders: "'authorization, content-type'"
@@ -79,25 +84,17 @@ Resources:
         Variables:
           STAGE: !Ref Stage
       Policies:
-        # Change to use policy template once this change is released: https://github.com/awslabs/serverless-application-model/issues/1071
-        #- SSMParameterReadPolicy:
-        #    ParameterName: !Sub "applications/apprepo/${Stage}/*"
-        - Version: '2012-10-17'
-          Statement:
-            - Effect: 'Allow'
-              Action:
-                - ssm:GetParametersByPath
-                - ssm:GetParameter
-              Resource: !Sub "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/${Stage}/*"
-        - Version: '2012-10-17'
-          Statement:
-            - Effect: 'Allow'
-              Action:
-                - kms:Encrypt
-                - kms:Decrypt
-              Resource: !GetAtt PaginationKey.Arn
+        - SSMParameterReadPolicy:
+            ParameterName: !Sub "applications/apprepo/${Stage}/*"
         - DynamoDBCrudPolicy:
             TableName: !Sub "{{resolve:ssm:/applications/apprepo/${Stage}/ddb/Applications/TableName:1}}"
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              Resource: !GetAtt PaginationKey.Arn
       Events:
         AnyApi:
           Type: Api
@@ -108,7 +105,8 @@ Resources:
       AutoPublishAlias: live
       DeploymentPreference:
         Enabled: true
-        Type: Canary10Percent15Minutes
+        # Use AllAtOnce in non-production environment to accelerate deployment
+        Type: !If [IsProd, Canary10Percent15Minutes, AllAtOnce]
         Alarms:
           - !Ref ApiAvailability
           - !Ref Api4xxErrors

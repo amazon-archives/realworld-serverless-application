@@ -38,6 +38,12 @@
       <version>2.0.1.Final</version>
     </dependency>
     <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>2.0.9</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
       <version>1.5.3</version>
@@ -431,20 +437,9 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>io.swagger</groupId>
+        <groupId>io.swagger.codegen.v3</groupId>
         <artifactId>swagger-codegen-maven-plugin</artifactId>
-        <version>2.4.7</version>
-        <configuration>
-          <inputSpec>${project.basedir}/swagger/api.yaml</inputSpec>
-          <language>jaxrs-spec</language>
-          <output>${project.build.directory}/generated-sources/swagger</output>
-          <configOptions>
-            <sourceFolder>src/main/java</sourceFolder>
-            <interfaceOnly>true</interfaceOnly>
-          </configOptions>
-          <withXml>false</withXml>
-          <generateSupportingFiles>false</generateSupportingFiles>
-        </configuration>
+        <version>3.0.11</version>
         <executions>
           <execution>
             <id>generate-swagger-model</id>
@@ -453,6 +448,15 @@
               <goal>generate</goal>
             </goals>
             <configuration>
+              <inputSpec>${project.basedir}/swagger/api.yaml</inputSpec>
+              <language>jaxrs-spec</language>
+              <configOptions>
+                <sourceFolder>src/main/java</sourceFolder>
+                <interfaceOnly>true</interfaceOnly>
+              </configOptions>
+              <withXml>false</withXml>
+              <generateSupportingFiles>false</generateSupportingFiles>
+<!-- modelPackage and apiPackage does not work due to https://github.com/swagger-api/swagger-codegen/issues/8708             -->
               <modelPackage>${project.groupId}.apprepo.api.model</modelPackage>
               <apiPackage>${project.groupId}.apprepo.api</apiPackage>
             </configuration>

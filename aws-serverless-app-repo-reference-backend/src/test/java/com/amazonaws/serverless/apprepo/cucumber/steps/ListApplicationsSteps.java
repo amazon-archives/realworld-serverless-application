@@ -18,7 +18,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 
 /**
  * Implementation of the steps in ListApplications.feature.
