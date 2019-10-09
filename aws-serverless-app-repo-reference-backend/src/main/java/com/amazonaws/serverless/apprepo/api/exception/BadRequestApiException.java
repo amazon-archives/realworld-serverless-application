@@ -1,6 +1,6 @@
 package com.amazonaws.serverless.apprepo.api.exception;
 
-import com.amazonaws.serverless.apprepo.api.model.BadRequestException;
+import io.swagger.model.BadRequestException;
 
 import javax.ws.rs.core.Response;
 
