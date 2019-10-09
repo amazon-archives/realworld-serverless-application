@@ -3,7 +3,7 @@ package com.amazonaws.serverless.apprepo.cucumber.guice;
 import com.amazonaws.serverless.apprepo.api.client.AWSServerlessApplicationRepository;
 import com.amazonaws.serverless.apprepo.cucumber.steps.AWSServerlessApplicationRepositoryRecordingClient;
 import com.amazonaws.serverless.apprepo.cucumber.steps.CognitoUserManager;
-import com.amazonaws.ssmcachingclient.SsmParameterCachingClient;
+import software.amazon.serverless.ssmcachingclient.SsmParameterCachingClient;
 import com.amazonaws.xray.AWSXRay;
 import com.amazonaws.xray.AWSXRayRecorderBuilder;
 import com.amazonaws.xray.strategy.LogErrorContextMissingStrategy;
