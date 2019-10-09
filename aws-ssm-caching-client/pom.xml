@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.amazonaws</groupId>
+    <groupId>software.amazon.serverless</groupId>
     <artifactId>aws-ssm-caching-client</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 
     <name>aws-ssm-caching-client</name>
     <url>https://github.com/awslabs/aws-ssm-caching-client</url>
