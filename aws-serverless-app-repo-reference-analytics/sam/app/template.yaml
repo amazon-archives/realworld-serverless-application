@@ -6,7 +6,7 @@ Parameters:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
     AllowedPattern: ^[a-z0-9_]+$
-    Default: 'beta'
+    Default: 'test'
 
 Resources:
   DDBFanoutApp:
