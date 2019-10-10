@@ -5,16 +5,16 @@ Description: >-
   It's primary objective is to serve as a case study of how to build a production grade service using a combination of serverless technologies and approaches.
 Metadata:
   AWS::ServerlessRepo::Application:
-    Name: aws-serverless-app-repo-reference
+    Name: realworld-serverless-application
     Description: >-
       This project is an adaptation of the AWS Serverless Application Repository.
       It's primary objective is to serve as a case study of how to build a production grade service using a combination of serverless technologies and approaches.
     Author: AWS Serverless Application Repository
     SpdxLicenseId: Apache-2.0
     Labels: [github, serverless, sam]
-    HomePageUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation
+    HomePageUrl: https://github.com/awslabs/realworld-serverless-application
     SemanticVersion: 0.1.5
-    SourceCodeUrl: https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/tree/0.1.5
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/0.1.5
     LicenseUrl: ../../LICENSE
     ReadmeUrl: ../../README.md
 
@@ -28,27 +28,27 @@ Resources:
   Backend:
     Type: 'AWS::Serverless::Application'
     Properties:
-      Location: '../../aws-serverless-app-repo-reference-backend/sam/app/template.yaml'
+      Location: '../../backend/sam/app/template.yaml'
       Parameters:
         Stage: !Ref Stage
   Ops:
     Type: 'AWS::Serverless::Application'
     Properties:
-      Location: '../../aws-serverless-app-repo-reference-ops/sam/app/template.yaml'
+      Location: '../../ops/sam/app/template.yaml'
       Parameters:
         Stage: !Ref Stage
     DependsOn: Backend
   Website:
     Type: 'AWS::Serverless::Application'
     Properties:
-      Location: '../../aws-serverless-app-repo-reference-static-website/sam/app/template.yaml'
+      Location: '../../static-website/sam/app/template.yaml'
       Parameters:
         Stage: !Ref Stage
     DependsOn: Backend
   Analytics:
     Type: 'AWS::Serverless::Application'
     Properties:
-      Location: '../../aws-serverless-app-repo-reference-analytics/sam/app/template.yaml'
+      Location: '../../analytics/sam/app/template.yaml'
       Parameters:
         Stage: !Ref Stage
     DependsOn: Backend

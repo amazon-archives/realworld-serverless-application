@@ -9,7 +9,7 @@ phases:
       - npm install -g @vue/cli
   build:
     commands:
-      - cd aws-serverless-app-repo-reference-static-website
+      - cd static-website
       - npm install
       - npm run ci
       - cd ..

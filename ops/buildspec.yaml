@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+       java: openjdk8 # Runtime version is required in the build spec even though this module does not use java
+  build:
+    commands:
+      - bin/package.sh -n ops
+artifacts:
+  files:
+    - ops/target/sam/app/packaged-template.yaml
+  discard-paths: yes

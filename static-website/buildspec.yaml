@@ -1,0 +1,16 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 8
+    commands:
+      - npm install -g @vue/cli
+  build:
+    commands:
+      - ./static-website/bin/package-static-website.sh
+      - ./bin/package.sh -n static-website
+artifacts:
+  files:
+    - static-website/target/sam/app/packaged-template.yaml
+  discard-paths: yes
