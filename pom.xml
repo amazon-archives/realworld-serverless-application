@@ -5,23 +5,22 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.amazonaws.serverless</groupId>
-  <artifactId>app-repo-reference-implementation</artifactId>
+  <artifactId>realworld-serverless-application</artifactId>
   <version>0.1.5</version>
   <packaging>pom</packaging>
 
-  <name>aws-serverless-app-repo-reference-implementation</name>
-  <url>https://github.com/awslabs/aws-serverless-app-repo-reference-implementation</url>
+  <name>realworld-serverless-application</name>
+  <url>https://github.com/awslabs/realworld-serverless-application</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <project.application.name>aws-serverless-app-repo-reference-implementation</project.application.name>
     <packageBucket>my-bucket</packageBucket>
   </properties>
   <modules>
     <module>aws-ssm-caching-client</module>
-    <module>aws-serverless-app-repo-reference-backend</module>
+    <module>backend</module>
   </modules>
   <build>
     <plugins>
