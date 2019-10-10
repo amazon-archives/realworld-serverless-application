@@ -8,8 +8,8 @@ import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS API
- *      Documentation</a>
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS
+ *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class UpdateApplicationResult extends com.amazonaws.opensdk.BaseResult implements Serializable, Cloneable {

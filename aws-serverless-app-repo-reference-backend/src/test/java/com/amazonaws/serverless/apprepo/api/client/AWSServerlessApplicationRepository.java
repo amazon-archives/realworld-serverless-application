@@ -37,23 +37,22 @@ public interface AWSServerlessApplicationRepository {
    * @throws InternalServerErrorException
    * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.CreateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest);
 
   /**
    * @param deleteApplicationRequest
    * @return Result of the DeleteApplication operation returned by the service.
+   * @throws NotFoundException
+   * @throws TooManyRequestsException
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @throws NotFoundException
-   * @throws TooManyRequestsException
-   * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.DeleteApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   DeleteApplicationResult deleteApplication(DeleteApplicationRequest deleteApplicationRequest);
 
@@ -66,8 +65,8 @@ public interface AWSServerlessApplicationRepository {
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
    * @sample AWSServerlessApplicationRepository.GetApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
-   *      Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS
+   *      API Documentation</a>
    */
   GetApplicationResult getApplication(GetApplicationRequest getApplicationRequest);
 
@@ -87,15 +86,14 @@ public interface AWSServerlessApplicationRepository {
   /**
    * @param updateApplicationRequest
    * @return Result of the UpdateApplication operation returned by the service.
+   * @throws NotFoundException
+   * @throws TooManyRequestsException
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @throws NotFoundException
-   * @throws TooManyRequestsException
-   * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.UpdateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest);
 

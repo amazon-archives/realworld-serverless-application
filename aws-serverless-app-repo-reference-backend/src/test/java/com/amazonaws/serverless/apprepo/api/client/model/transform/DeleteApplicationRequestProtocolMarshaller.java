@@ -23,8 +23,8 @@ import javax.annotation.Generated;
 public class DeleteApplicationRequestProtocolMarshaller implements Marshaller<Request<DeleteApplicationRequest>, DeleteApplicationRequest> {
 
   private static final OperationInfo SDK_OPERATION_BINDING = OperationInfo.builder().protocol(Protocol.API_GATEWAY)
-        .requestUri("/Prod/applications/{applicationId}").httpMethodName(HttpMethodName.DELETE).hasExplicitPayloadMember(false).hasPayloadMembers(false)
-        .serviceName("AWSServerlessApplicationRepository").build();
+          .requestUri("/Prod/applications/{applicationId}").httpMethodName(HttpMethodName.DELETE).hasExplicitPayloadMember(false).hasPayloadMembers(false)
+          .serviceName("AWSServerlessApplicationRepository").build();
 
   private final com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl protocolFactory;
 
@@ -40,7 +40,7 @@ public class DeleteApplicationRequestProtocolMarshaller implements Marshaller<Re
 
     try {
       final ProtocolRequestMarshaller<DeleteApplicationRequest> protocolMarshaller = protocolFactory.createProtocolMarshaller(SDK_OPERATION_BINDING,
-            deleteApplicationRequest);
+              deleteApplicationRequest);
 
       protocolMarshaller.startMarshalling();
       DeleteApplicationRequestMarshaller.getInstance().marshall(deleteApplicationRequest, protocolMarshaller);

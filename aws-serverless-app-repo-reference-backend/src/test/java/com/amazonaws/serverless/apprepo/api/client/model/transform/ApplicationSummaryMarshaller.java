@@ -21,11 +21,11 @@ import javax.annotation.Generated;
 public class ApplicationSummaryMarshaller {
 
   private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("applicationId").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("applicationId").build();
   private static final MarshallingInfo<String> CREATIONTIME_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("creationTime").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("creationTime").build();
   private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
 
   private static final ApplicationSummaryMarshaller instance = new ApplicationSummaryMarshaller();
 

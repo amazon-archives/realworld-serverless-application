@@ -21,13 +21,13 @@ import javax.annotation.Generated;
 public class CreateApplicationInputMarshaller {
 
   private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("applicationId").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("applicationId").build();
   private static final MarshallingInfo<String> AUTHOR_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
-        .marshallLocationName("author").build();
+          .marshallLocationName("author").build();
   private static final MarshallingInfo<String> DESCRIPTION_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("description").build();
   private static final MarshallingInfo<String> HOMEPAGEURL_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("homePageUrl").build();
+          .marshallLocation(MarshallLocation.PAYLOAD).marshallLocationName("homePageUrl").build();
 
   private static final CreateApplicationInputMarshaller instance = new CreateApplicationInputMarshaller();
 

@@ -22,7 +22,7 @@ import javax.annotation.Generated;
 public class CreateApplicationRequestMarshaller {
 
   private static final MarshallingInfo<StructuredPojo> CREATEAPPLICATIONINPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
-        .marshallLocation(MarshallLocation.PAYLOAD).isExplicitPayloadMember(true).build();
+          .marshallLocation(MarshallLocation.PAYLOAD).isExplicitPayloadMember(true).build();
 
   private static final CreateApplicationRequestMarshaller instance = new CreateApplicationRequestMarshaller();
 

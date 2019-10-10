@@ -22,9 +22,9 @@ import javax.annotation.Generated;
 public class UpdateApplicationRequestMarshaller {
 
   private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PATH).marshallLocationName("applicationId").build();
+          .marshallLocation(MarshallLocation.PATH).marshallLocationName("applicationId").build();
   private static final MarshallingInfo<StructuredPojo> UPDATEAPPLICATIONINPUT_BINDING = MarshallingInfo.builder(MarshallingType.STRUCTURED)
-        .marshallLocation(MarshallLocation.PAYLOAD).isExplicitPayloadMember(true).build();
+          .marshallLocation(MarshallLocation.PAYLOAD).isExplicitPayloadMember(true).build();
 
   private static final UpdateApplicationRequestMarshaller instance = new UpdateApplicationRequestMarshaller();
 

@@ -10,7 +10,7 @@ import com.amazonaws.opensdk.internal.BaseException;
 import javax.annotation.Generated;
 
 /**
- * Base exception for all service exceptions thrown by aws-serverless-app-repo-reference-backend-beta
+ * Base exception for all service exceptions thrown by aws-serverless-app-repo-reference-backend-integ-tests
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class AWSServerlessApplicationRepositoryException extends com.amazonaws.SdkBaseException implements BaseException {

@@ -8,8 +8,8 @@ import javax.annotation.Generated;
 
 /**
  *
- * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS API
- *      Documentation</a>
+ * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS
+ *      API Documentation</a>
  */
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public class DeleteApplicationResult extends com.amazonaws.opensdk.BaseResult implements Serializable, Cloneable {

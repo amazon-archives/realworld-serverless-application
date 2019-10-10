@@ -58,30 +58,30 @@ class AWSServerlessApplicationRepositoryClient implements AWSServerlessApplicati
   private final ClientHandler clientHandler;
 
   private static final com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl protocolFactory = new com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl(
-        new JsonClientMetadata()
-              .withProtocolVersion("1.1")
-              .withSupportsCbor(false)
-              .withSupportsIon(false)
-              .withContentTypeOverride("application/json")
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.ConflictException.class))
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.NotFoundException.class))
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.TooManyRequestsException.class))
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.UnauthorizedException.class))
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.BadRequestException.class))
-              .addErrorMetadata(
-                    new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
-                          com.amazonaws.serverless.apprepo.api.client.model.InternalServerErrorException.class))
-              .withBaseServiceExceptionClass(com.amazonaws.serverless.apprepo.api.client.model.AWSServerlessApplicationRepositoryException.class));
+          new JsonClientMetadata()
+                  .withProtocolVersion("1.1")
+                  .withSupportsCbor(false)
+                  .withSupportsIon(false)
+                  .withContentTypeOverride("application/json")
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("ConflictException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.ConflictException.class))
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("NotFoundException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.NotFoundException.class))
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("TooManyRequestsException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.TooManyRequestsException.class))
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("UnauthorizedException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.UnauthorizedException.class))
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("BadRequestException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.BadRequestException.class))
+                  .addErrorMetadata(
+                          new JsonErrorShapeMetadata().withErrorCode("InternalServerErrorException").withModeledClass(
+                                  com.amazonaws.serverless.apprepo.api.client.model.InternalServerErrorException.class))
+                  .withBaseServiceExceptionClass(com.amazonaws.serverless.apprepo.api.client.model.AWSServerlessApplicationRepositoryException.class));
 
   /**
    * Constructs a new client to invoke service methods on AWSServerlessApplicationRepository using the specified
@@ -107,55 +107,53 @@ class AWSServerlessApplicationRepositoryClient implements AWSServerlessApplicati
    * @throws InternalServerErrorException
    * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.CreateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/CreateApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   @Override
   public CreateApplicationResult createApplication(CreateApplicationRequest createApplicationRequest) {
     HttpResponseHandler<CreateApplicationResult> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata().withPayloadJson(true)
-          .withHasStreamingSuccessResponse(false), new CreateApplicationResultJsonUnmarshaller());
+            .withHasStreamingSuccessResponse(false), new CreateApplicationResultJsonUnmarshaller());
 
     HttpResponseHandler<SdkBaseException> errorResponseHandler = createErrorResponseHandler(
-          new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
-                .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
-          new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
-                .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500),
-          new JsonErrorShapeMetadata().withModeledClass(ConflictException.class).withHttpStatusCode(409));
+            new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
+                    .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
+            new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
+                    .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500),
+            new JsonErrorShapeMetadata().withModeledClass(ConflictException.class).withHttpStatusCode(409));
 
     return clientHandler.execute(new ClientExecutionParams<CreateApplicationRequest, CreateApplicationResult>()
-          .withMarshaller(new CreateApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
-          .withErrorResponseHandler(errorResponseHandler).withInput(createApplicationRequest));
+            .withMarshaller(new CreateApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
+            .withErrorResponseHandler(errorResponseHandler).withInput(createApplicationRequest));
   }
 
   /**
    * @param deleteApplicationRequest
    * @return Result of the DeleteApplication operation returned by the service.
+   * @throws NotFoundException
+   * @throws TooManyRequestsException
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @throws NotFoundException
-   * @throws TooManyRequestsException
-   * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.DeleteApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/DeleteApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   @Override
   public DeleteApplicationResult deleteApplication(DeleteApplicationRequest deleteApplicationRequest) {
     HttpResponseHandler<DeleteApplicationResult> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata().withPayloadJson(true)
-          .withHasStreamingSuccessResponse(false), new DeleteApplicationResultJsonUnmarshaller());
+            .withHasStreamingSuccessResponse(false), new DeleteApplicationResultJsonUnmarshaller());
 
     HttpResponseHandler<SdkBaseException> errorResponseHandler = createErrorResponseHandler(
-          new JsonErrorShapeMetadata().withModeledClass(BadRequestException.class).withHttpStatusCode(400), new JsonErrorShapeMetadata()
-                .withModeledClass(UnauthorizedException.class).withHttpStatusCode(401),
-          new JsonErrorShapeMetadata().withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500), new JsonErrorShapeMetadata()
-                .withModeledClass(NotFoundException.class).withHttpStatusCode(404),
-          new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
-                .withModeledClass(ConflictException.class).withHttpStatusCode(409));
+            new JsonErrorShapeMetadata().withModeledClass(NotFoundException.class).withHttpStatusCode(404),
+            new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
+                    .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
+            new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
+                    .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
 
     return clientHandler.execute(new ClientExecutionParams<DeleteApplicationRequest, DeleteApplicationResult>()
-          .withMarshaller(new DeleteApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
-          .withErrorResponseHandler(errorResponseHandler).withInput(deleteApplicationRequest));
+            .withMarshaller(new DeleteApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
+            .withErrorResponseHandler(errorResponseHandler).withInput(deleteApplicationRequest));
   }
 
   /**
@@ -167,24 +165,24 @@ class AWSServerlessApplicationRepositoryClient implements AWSServerlessApplicati
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
    * @sample AWSServerlessApplicationRepository.GetApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS API
-   *      Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/GetApplication" target="_top">AWS
+   *      API Documentation</a>
    */
   @Override
   public GetApplicationResult getApplication(GetApplicationRequest getApplicationRequest) {
     HttpResponseHandler<GetApplicationResult> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata().withPayloadJson(true)
-          .withHasStreamingSuccessResponse(false), new GetApplicationResultJsonUnmarshaller());
+            .withHasStreamingSuccessResponse(false), new GetApplicationResultJsonUnmarshaller());
 
     HttpResponseHandler<SdkBaseException> errorResponseHandler = createErrorResponseHandler(
-          new JsonErrorShapeMetadata().withModeledClass(NotFoundException.class).withHttpStatusCode(404),
-          new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
-                .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
-          new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
-                .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
+            new JsonErrorShapeMetadata().withModeledClass(NotFoundException.class).withHttpStatusCode(404),
+            new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
+                    .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
+            new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
+                    .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
 
     return clientHandler.execute(new ClientExecutionParams<GetApplicationRequest, GetApplicationResult>()
-          .withMarshaller(new GetApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
-          .withErrorResponseHandler(errorResponseHandler).withInput(getApplicationRequest));
+            .withMarshaller(new GetApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
+            .withErrorResponseHandler(errorResponseHandler).withInput(getApplicationRequest));
   }
 
   /**
@@ -201,48 +199,46 @@ class AWSServerlessApplicationRepositoryClient implements AWSServerlessApplicati
   @Override
   public ListApplicationsResult listApplications(ListApplicationsRequest listApplicationsRequest) {
     HttpResponseHandler<ListApplicationsResult> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata().withPayloadJson(true)
-          .withHasStreamingSuccessResponse(false), new ListApplicationsResultJsonUnmarshaller());
+            .withHasStreamingSuccessResponse(false), new ListApplicationsResultJsonUnmarshaller());
 
     HttpResponseHandler<SdkBaseException> errorResponseHandler = createErrorResponseHandler(
-          new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
-                .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
-          new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
-                .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
+            new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
+                    .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
+            new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
+                    .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
 
     return clientHandler.execute(new ClientExecutionParams<ListApplicationsRequest, ListApplicationsResult>()
-          .withMarshaller(new ListApplicationsRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
-          .withErrorResponseHandler(errorResponseHandler).withInput(listApplicationsRequest));
+            .withMarshaller(new ListApplicationsRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
+            .withErrorResponseHandler(errorResponseHandler).withInput(listApplicationsRequest));
   }
 
   /**
    * @param updateApplicationRequest
    * @return Result of the UpdateApplication operation returned by the service.
+   * @throws NotFoundException
+   * @throws TooManyRequestsException
    * @throws BadRequestException
    * @throws UnauthorizedException
    * @throws InternalServerErrorException
-   * @throws NotFoundException
-   * @throws TooManyRequestsException
-   * @throws ConflictException
    * @sample AWSServerlessApplicationRepository.UpdateApplication
-   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication" target="_top">AWS
-   *      API Documentation</a>
+   * @see <a href="http://docs.aws.amazon.com/goto/WebAPI/xxx-2019-10-13/UpdateApplication"
+   *      target="_top">AWS API Documentation</a>
    */
   @Override
   public UpdateApplicationResult updateApplication(UpdateApplicationRequest updateApplicationRequest) {
     HttpResponseHandler<UpdateApplicationResult> responseHandler = protocolFactory.createResponseHandler(new JsonOperationMetadata().withPayloadJson(true)
-          .withHasStreamingSuccessResponse(false), new UpdateApplicationResultJsonUnmarshaller());
+            .withHasStreamingSuccessResponse(false), new UpdateApplicationResultJsonUnmarshaller());
 
     HttpResponseHandler<SdkBaseException> errorResponseHandler = createErrorResponseHandler(
-          new JsonErrorShapeMetadata().withModeledClass(BadRequestException.class).withHttpStatusCode(400), new JsonErrorShapeMetadata()
-                .withModeledClass(UnauthorizedException.class).withHttpStatusCode(401),
-          new JsonErrorShapeMetadata().withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500), new JsonErrorShapeMetadata()
-                .withModeledClass(NotFoundException.class).withHttpStatusCode(404),
-          new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
-                .withModeledClass(ConflictException.class).withHttpStatusCode(409));
+            new JsonErrorShapeMetadata().withModeledClass(NotFoundException.class).withHttpStatusCode(404),
+            new JsonErrorShapeMetadata().withModeledClass(TooManyRequestsException.class).withHttpStatusCode(429), new JsonErrorShapeMetadata()
+                    .withModeledClass(BadRequestException.class).withHttpStatusCode(400),
+            new JsonErrorShapeMetadata().withModeledClass(UnauthorizedException.class).withHttpStatusCode(401), new JsonErrorShapeMetadata()
+                    .withModeledClass(InternalServerErrorException.class).withHttpStatusCode(500));
 
     return clientHandler.execute(new ClientExecutionParams<UpdateApplicationRequest, UpdateApplicationResult>()
-          .withMarshaller(new UpdateApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
-          .withErrorResponseHandler(errorResponseHandler).withInput(updateApplicationRequest));
+            .withMarshaller(new UpdateApplicationRequestProtocolMarshaller(protocolFactory)).withResponseHandler(responseHandler)
+            .withErrorResponseHandler(errorResponseHandler).withInput(updateApplicationRequest));
   }
 
   /**
