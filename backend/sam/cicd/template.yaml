@@ -15,7 +15,7 @@ Parameters:
   Stage:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
-    Default: 'beta'
+    Default: 'dev'
 Resources:
   CD:
     Type: 'AWS::Serverless::Application'
@@ -31,8 +31,8 @@ Resources:
         DeployRoleName: !Ref DeployRole
         DeployParameterOverrides: !Sub '{"Stage":"${Stage}"}'
         IntegTestRoleName: !Ref IntegTestsRole
-        BuildSpecFilePath: 'realworld-serverless-application-backend/buildspec.yaml'
-        IntegTestBuildSpecFilePath: 'realworld-serverless-application-backend/buildspec-integ-test.yaml'
+        BuildSpecFilePath: 'backend/buildspec.yaml'
+        IntegTestBuildSpecFilePath: 'backend/buildspec-integ-test.yaml'
 
   # This policy defines the minimum IAM permissions required to Create and Delete a stack for backend module into CloudFormation
   CloudFormationDeployPolicy:

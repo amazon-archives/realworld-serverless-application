@@ -10,9 +10,9 @@ phases:
       - cd aws-ssm-caching-client
       - mvn clean install
       - cd ..
-      - cd realworld-serverless-application-backend
+      - cd backend
       - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
 artifacts:
   files:
-    - realworld-serverless-application-backend/target/sam/app/packaged-template.yaml
+    - backend/target/sam/app/packaged-template.yaml
   discard-paths: yes
