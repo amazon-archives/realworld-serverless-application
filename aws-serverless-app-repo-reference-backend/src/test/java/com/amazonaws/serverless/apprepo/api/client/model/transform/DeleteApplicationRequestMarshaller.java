@@ -21,7 +21,7 @@ import javax.annotation.Generated;
 public class DeleteApplicationRequestMarshaller {
 
   private static final MarshallingInfo<String> APPLICATIONID_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.PATH).marshallLocationName("applicationId").build();
+          .marshallLocation(MarshallLocation.PATH).marshallLocationName("applicationId").build();
 
   private static final DeleteApplicationRequestMarshaller instance = new DeleteApplicationRequestMarshaller();
 

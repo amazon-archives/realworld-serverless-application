@@ -22,9 +22,9 @@ import javax.annotation.Generated;
 public class ApplicationListMarshaller {
 
   private static final MarshallingInfo<List> APPLICATIONS_BINDING = MarshallingInfo.builder(MarshallingType.LIST).marshallLocation(MarshallLocation.PAYLOAD)
-        .marshallLocationName("applications").build();
+          .marshallLocationName("applications").build();
   private static final MarshallingInfo<String> NEXTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING).marshallLocation(MarshallLocation.PAYLOAD)
-        .marshallLocationName("nextToken").build();
+          .marshallLocationName("nextToken").build();
 
   private static final ApplicationListMarshaller instance = new ApplicationListMarshaller();
 

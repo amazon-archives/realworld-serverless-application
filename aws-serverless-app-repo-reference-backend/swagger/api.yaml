@@ -115,12 +115,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UnauthorizedException"
-        "409":
-          description: "Conflict Exception"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ConflictException"
         "429":
           description: "Too Many Requests Exception"
           content:
@@ -170,12 +164,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UnauthorizedException"
-        "409":
-          description: "Conflict Exception"
+        "404":
+          description: "Not Found Exception"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConflictException"
+                $ref: "#/components/schemas/NotFoundException"
         "429":
           description: "Too Many Requests Exception"
           content:
@@ -230,12 +224,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UnauthorizedException"
-        "409":
-          description: "Conflict Exception"
+        "404":
+          description: "Not Found Exception"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConflictException"
+                $ref: "#/components/schemas/NotFoundException"
         "429":
           description: "Too Many Requests Exception"
           content:
@@ -280,12 +274,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UnauthorizedException"
-        "409":
-          description: "Conflict Exception"
+        "404":
+          description: "Not Found Exception"
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ConflictException"
+                $ref: "#/components/schemas/NotFoundException"
         "429":
           description: "Too Many Requests Exception"
           content:

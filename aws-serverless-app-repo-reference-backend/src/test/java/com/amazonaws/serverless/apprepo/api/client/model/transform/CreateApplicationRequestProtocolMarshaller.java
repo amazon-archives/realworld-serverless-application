@@ -23,8 +23,8 @@ import javax.annotation.Generated;
 public class CreateApplicationRequestProtocolMarshaller implements Marshaller<Request<CreateApplicationRequest>, CreateApplicationRequest> {
 
   private static final OperationInfo SDK_OPERATION_BINDING = OperationInfo.builder().protocol(Protocol.API_GATEWAY).requestUri("/Prod/applications")
-        .httpMethodName(HttpMethodName.POST).hasExplicitPayloadMember(true).hasPayloadMembers(true).serviceName("AWSServerlessApplicationRepository")
-        .build();
+          .httpMethodName(HttpMethodName.POST).hasExplicitPayloadMember(true).hasPayloadMembers(true).serviceName("AWSServerlessApplicationRepository")
+          .build();
 
   private final com.amazonaws.opensdk.protect.protocol.ApiGatewayProtocolFactoryImpl protocolFactory;
 
@@ -40,7 +40,7 @@ public class CreateApplicationRequestProtocolMarshaller implements Marshaller<Re
 
     try {
       final ProtocolRequestMarshaller<CreateApplicationRequest> protocolMarshaller = protocolFactory.createProtocolMarshaller(SDK_OPERATION_BINDING,
-            createApplicationRequest);
+              createApplicationRequest);
 
       protocolMarshaller.startMarshalling();
       CreateApplicationRequestMarshaller.getInstance().marshall(createApplicationRequest, protocolMarshaller);

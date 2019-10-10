@@ -21,9 +21,9 @@ import javax.annotation.Generated;
 public class ListApplicationsRequestMarshaller {
 
   private static final MarshallingInfo<String> MAXITEMS_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("maxItems").build();
+          .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("maxItems").build();
   private static final MarshallingInfo<String> NEXTTOKEN_BINDING = MarshallingInfo.builder(MarshallingType.STRING)
-        .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("nextToken").build();
+          .marshallLocation(MarshallLocation.QUERY_PARAM).marshallLocationName("nextToken").build();
 
   private static final ListApplicationsRequestMarshaller instance = new ListApplicationsRequestMarshaller();
 

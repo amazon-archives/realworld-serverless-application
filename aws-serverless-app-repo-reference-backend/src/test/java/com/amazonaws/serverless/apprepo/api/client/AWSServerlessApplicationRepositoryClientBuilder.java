@@ -22,7 +22,7 @@ import javax.annotation.Generated;
 @NotThreadSafe
 @Generated("com.amazonaws:aws-java-sdk-code-generator")
 public final class AWSServerlessApplicationRepositoryClientBuilder extends
-      SdkSyncClientBuilder<AWSServerlessApplicationRepositoryClientBuilder, AWSServerlessApplicationRepository> {
+        SdkSyncClientBuilder<AWSServerlessApplicationRepositoryClientBuilder, AWSServerlessApplicationRepository> {
 
   private static final URI DEFAULT_ENDPOINT = RuntimeHttpUtils.toUri("xxx.execute-api.us-east-1.amazonaws.com", Protocol.HTTPS);
   private static final String DEFAULT_REGION = "us-east-1";
