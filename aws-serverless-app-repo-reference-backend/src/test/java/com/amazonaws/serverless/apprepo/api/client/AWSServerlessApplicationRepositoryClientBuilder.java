@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 public final class AWSServerlessApplicationRepositoryClientBuilder extends
         SdkSyncClientBuilder<AWSServerlessApplicationRepositoryClientBuilder, AWSServerlessApplicationRepository> {
 
-  private static final URI DEFAULT_ENDPOINT = RuntimeHttpUtils.toUri("plqipnz1lh.execute-api.us-east-1.amazonaws.com", Protocol.HTTPS);
+  private static final URI DEFAULT_ENDPOINT = RuntimeHttpUtils.toUri("xxx.execute-api.us-east-1.amazonaws.com", Protocol.HTTPS);
   private static final String DEFAULT_REGION = "us-east-1";
 
   /**
