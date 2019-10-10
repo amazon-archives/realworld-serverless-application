@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: >-
-  This template creates IAM roles and use them to setup CD pipeline for the analytics module.
+  This template creates IAM roles and use them to setup CD pipeline for the analytics component.
 
 Parameters:
   GitHubOAuthTokenSecretId:
@@ -15,7 +15,7 @@ Parameters:
   Stage:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
-    Default: 'beta'
+    Default: 'dev'
 Resources:
   CD:
     Type: 'AWS::Serverless::Application'
@@ -30,9 +30,9 @@ Resources:
         DeployStackName: !Ref ApplicationStackName
         DeployRoleName: !Ref DeployRole
         DeployParameterOverrides: !Sub '{"Stage":"${Stage}"}'
-        BuildSpecFilePath: 'realworld-serverless-application-analytics/buildspec.yaml'
+        BuildSpecFilePath: 'analytics/buildspec.yaml'
 
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-ops module into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-analytics into CloudFormation
   CloudFormationDeployPolicy:
     Type: AWS::IAM::Policy
     Properties:
@@ -159,7 +159,7 @@ Resources:
             Resource:
               - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/*
 
-  # This role is used to deploy realworld-serverless-application-ops to CloudFormation.
+  # This role is used to deploy realworld-serverless-application-analytics to CloudFormation.
   DeployRole:
     Type: "AWS::IAM::Role"
     Properties:

@@ -34,7 +34,7 @@ Resources:
         BuildSpecFilePath: 'backend/buildspec.yaml'
         IntegTestBuildSpecFilePath: 'backend/buildspec-integ-test.yaml'
 
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for backend module into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for backend component into CloudFormation
   CloudFormationDeployPolicy:
     Type: AWS::IAM::Policy
     Properties:

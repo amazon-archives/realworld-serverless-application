@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: >-
-  This template creates IAM roles and use them to setup CD pipeline.
+  This template creates IAM roles and use them to setup CD pipeline for the static website.
 
 Parameters:
   GitHubOAuthTokenSecretId:
@@ -15,7 +15,7 @@ Parameters:
   Stage:
     Type: String
     Description: The stage where the application is running in, e.g., dev, prod.
-    Default: 'beta'
+    Default: 'dev'
 Resources:
   CD:
     Type: 'AWS::Serverless::Application'
@@ -31,10 +31,10 @@ Resources:
         DeployRoleName: !Ref DeployRole
         DeployParameterOverrides: !Sub '{"Stage":"${Stage}"}'
         IntegTestRoleName: !Ref IntegTestsRole
-        BuildSpecFilePath: 'realworld-serverless-application-static-website/buildspec.yaml'
-        IntegTestBuildSpecFilePath: 'realworld-serverless-application-static-website/buildspec-integ-test.yaml'
+        BuildSpecFilePath: 'static-website/buildspec.yaml'
+        IntegTestBuildSpecFilePath: 'static-website/buildspec-integ-test.yaml'
 
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-backend module into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for static-website component into CloudFormation
   CloudFormationDeployPolicyWebsite:
     Type: AWS::IAM::Policy
     Properties:
@@ -128,7 +128,7 @@ Resources:
               - cognito-idp:DeleteUserPoolClient
             Resource:
               - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-backend module into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-static-website into CloudFormation
   CloudFormationDeployPolicyBackend:
     Type: AWS::IAM::Policy
     Properties:

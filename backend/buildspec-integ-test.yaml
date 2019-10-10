@@ -10,7 +10,7 @@ phases:
       - cd aws-ssm-caching-client
       - mvn clean install
       - cd ..
-      - cd realworld-serverless-application-backend
+      - cd backend
       - STAGE=integ-tests-`date +%s`
       - mvn clean verify -Dintegtests.stage=${STAGE} -DpackageBucket=${PACKAGE_BUCKET}
 
