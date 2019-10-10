@@ -1,0 +1,148 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This template creates CloudWatch alarms for the backend service.
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: realworld-serverless-application-ops-alarm
+    Description: >-
+      This template creates CloudWatch alarms for the backend service.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [github, serverless, sam]
+    HomePageUrl: https://github.com/awslabs/realworld-serverless-application
+    SemanticVersion: 0.1.5
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/0.1.5
+    LicenseUrl: ../../../LICENSE
+    ReadmeUrl: ../../README.md
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+    
+Resources:
+  ApiAvailability:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: true
+      AlarmDescription: !Sub 'API Gateway API realworld-serverless-application-backend-${Stage} availability is lower than 90%'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub realworld-serverless-application-backend-${Stage}
+      EvaluationPeriods: 5
+      MetricName: 5XXErrors
+      Namespace: AWS/ApiGateway
+      Period: 60
+      Statistic: Average
+      Threshold: 0.1
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Ref: AlarmsTopic
+  Api4xxErrors:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: true
+      AlarmDescription: !Sub 'API Gateway API realworld-serverless-application-backend-${Stage} 4xx Errors are more than 30%'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub realworld-serverless-application-backend-${Stage}
+      EvaluationPeriods: 5
+      MetricName: 4XXErrors
+      Namespace: AWS/ApiGateway
+      Period: 60
+      Statistic: Average
+      Threshold: 0.3
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Ref: AlarmsTopic
+  ApiLatencyP50:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: true
+      AlarmDescription: !Sub 'API Gateway API realworld-serverless-application-backend-${Stage} latency p50 is too high'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub realworld-serverless-application-backend-${Stage}
+      EvaluationPeriods: 5
+      MetricName: Latency
+      Namespace: AWS/ApiGateway
+      Period: 60
+      ExtendedStatistic: p50
+      Threshold: 200
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Ref: AlarmsTopic
+  ApiLatencyP90:
+    Type: 'AWS::CloudWatch::Alarm'
+    Properties:
+      ActionsEnabled: true
+      AlarmDescription: !Sub 'API Gateway API realworld-serverless-application-backend-${Stage} latency p90 is too high'
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: ApiName
+          Value: !Sub realworld-serverless-application-backend-${Stage}
+      EvaluationPeriods: 5
+      MetricName: Latency
+      Namespace: AWS/ApiGateway
+      Period: 60
+      ExtendedStatistic: p90
+      Threshold: 2000
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - Ref: AlarmsTopic
+  AlarmsTopic:
+    Type: AWS::SNS::Topic
+
+  # Storing resources names to SSM
+  ApiAvailabilityAlarmName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cloudwatch/ApiAvailabilityAlarmName"
+      Type: "String"
+      Value: !Ref ApiAvailability
+      Description: "ApiAvailability alarm name"
+
+  Api4xxErrorsAlarmName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cloudwatch/Api4xxErrorsAlarmName"
+      Type: "String"
+      Value: !Ref Api4xxErrors
+      Description: "Api4xxErrors alarm name"
+
+  ApiLatencyP50AlarmName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cloudwatch/ApiLatencyP50AlarmName"
+      Type: "String"
+      Value: !Ref ApiLatencyP50
+      Description: "ApiLatencyP50 alarm name"
+
+  ApiLatencyP90AlarmName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/cloudwatch/ApiLatencyP90AlarmName"
+      Type: "String"
+      Value: !Ref ApiLatencyP90
+      Description: "ApiLatencyP90 alarm name"
+
+  AlarmsTopicArn:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/sns/AlarmsTopicArn"
+      Type: "String"
+      Value: !Ref AlarmsTopic
+      Description: "AlarmsTopic arn"
+
+  AlarmsTopicName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/sns/AlarmsTopicName"
+      Type: "String"
+      Value: !GetAtt AlarmsTopic.TopicName
+      Description: "AlarmsTopic name"

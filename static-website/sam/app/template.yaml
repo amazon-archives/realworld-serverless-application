@@ -1,0 +1,133 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This application creates a static website that interacts with the backend service.
+
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: realworld-serverless-application-static-website
+    Description: >-
+      This application creates a static website that interacts with the backend service.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [github, serverless, sam]
+    HomePageUrl: https://github.com/awslabs/realworld-serverless-application
+    SemanticVersion: 0.1.5
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/0.1.5
+    LicenseUrl: ../../../LICENSE
+    ReadmeUrl: ../../README.md
+
+Parameters:
+  Stage:
+    Type: String
+    Description: The stage where the application is running in, e.g., dev, prod.
+    Default: 'test'
+
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  DeploymentLayer:
+    Type: AWS::Serverless::Application
+    Properties:
+      Location:
+        ApplicationId: arn:aws:serverlessrepo:us-east-1:375983427419:applications/deploy-to-s3
+        SemanticVersion: 2.2.0
+
+  # this function is used only during deployment,
+  # we use the web site assets as the source of the function
+  # tricking cloudformation to pack up the web site files
+  # using the standard cloudformation package process
+  DeploymentFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Layers:
+        # the layer contains the deployment code
+        # so the function "source" can just contain the web assets
+        - !GetAtt DeploymentLayer.Outputs.Arn
+
+      # point to directory with the assets so cloudformation can
+      # package and upload them
+      CodeUri: ../../dist/
+
+      # really important: this will ensure that any change in
+      # the bundled files gets deployed again. we're abusing
+      # the custom resource pipeline here, so this will be used
+      # to change parameters of the resource and re-trigger it
+      AutoPublishAlias: live
+
+      # the following two lines are required to make the layer work
+      Runtime: python3.6
+      Handler: deployer.resource_handler
+
+      # set the timeout to something reasonable depending on
+      # how long it takes to upload your assets to S3
+      Timeout: 600
+
+      # give the function access to the bucket where it
+      # will upload the assets
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref WebsiteBucket
+
+  # This is a custom resource that
+  # will trigger the function during deployment
+  DeploymentResource:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+
+      # the following two lines are required to
+      # ensure that cloudformation will trigger the
+      # resource every time you change the bundled files
+      ServiceToken: !GetAtt DeploymentFunction.Arn
+      Version: !Ref "DeploymentFunction.Version"
+
+      # tell the deployer where to upload the files
+      TargetBucket: !Ref WebsiteBucket
+
+      Substitutions:
+        # scope string substitutions to .js and .js.map files in the production built website
+        FilePattern: "js/*.js*"
+        Values:
+          # replaces any occurrence of ${ValueKey} in the javascript code with the following values
+          SAR_BACKEND_ENDPOINT: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/apigateway/ApplicationsApi/Endpoint:1}}/Prod'
+          USER_POOL_ID: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/cognito/userpool/ApplicationsApi/Id:1}}'
+          USER_POOL_WEB_CLIENT_ID: !Ref CognitoClient
+
+      # Choose the ACL and caching policies
+      # eg, for directly accessible web site
+      # use public-read and 10 minutes caching
+      Acl: 'public-read'
+      CacheControlMaxAge: 600
+  CognitoClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ExplicitAuthFlows:
+        - USER_PASSWORD_AUTH
+      ClientName: static-website
+      GenerateSecret: false
+      RefreshTokenValidity: 30
+      UserPoolId: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/cognito/userpool/ApplicationsApi/Id:1}}'
+
+  # Storing resources names to SSM
+  WebsiteBucketName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/s3/WebsiteBucket/Name"
+      Type: "String"
+      Value: !Ref WebsiteBucket
+      Description: "WebsiteBucket bucket name"
+  WebsiteUrl:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/s3/WebsiteBucket/WebsiteURL"
+      Type: "String"
+      Value: !GetAtt WebsiteBucket.WebsiteURL
+      Description: "WebsiteBucket website URL"
+Outputs:
+  Url:
+    Description: The static website URL for the service.
+    Value: !GetAtt WebsiteBucket.WebsiteURL
