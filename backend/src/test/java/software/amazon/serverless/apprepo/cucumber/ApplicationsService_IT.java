@@ -1,4 +1,4 @@
-package com.amazonaws.serverless.apprepo.cucumber;
+package software.amazon.serverless.apprepo.cucumber;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
