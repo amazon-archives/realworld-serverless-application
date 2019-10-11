@@ -39,11 +39,11 @@ router.beforeEach((to, from, next) => {
       .then(() => {
         const token = store.getters.jwtToken;
         if (!token) {
-          return next({ name: 'home' });
+          return next({ name: 'signin' });
         }
         return next();
       })
-      .catch(() => next({ name: 'home' }));
+      .catch(() => next({ name: 'signin' }));
   }
   return next();
 });
