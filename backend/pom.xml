@@ -103,7 +103,7 @@
     </dependency>
     <dependency>
       <groupId>software.amazon.serverless</groupId>
-      <artifactId>aws-ssm-caching-client</artifactId>
+      <artifactId>aws-ssm-java-caching-client</artifactId>
       <version>1.0.0</version>
     </dependency>
     <dependency>

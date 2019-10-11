@@ -6,10 +6,6 @@ phases:
       java: openjdk8
   build:
     commands:
-      # Remove the first three lines once aws-ssm-caching-client is published to Maven Central Repository
-      - cd aws-ssm-caching-client
-      - mvn clean install
-      - cd ..
       - cd backend
       - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
 artifacts:
