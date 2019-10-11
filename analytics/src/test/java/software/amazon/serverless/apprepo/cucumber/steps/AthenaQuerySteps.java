@@ -108,7 +108,7 @@ public class AthenaQuerySteps {
       attempts++;
     }
 
-    assertThat(rows).hasSize(2); // Results always have 1 row of headers
+    assertThat(rows).hasSizeGreaterThan(1); // Results always have 1 row of headers
     assertThat(rows.get(1).data().get(0).varCharValue()).isEqualTo("INSERT");
     assertThat(rows.get(1).data().get(1).varCharValue()).isEqualTo(TestEnv.getApplication().getApplicationId());
     assertThat(rows.get(1).data().get(3).varCharValue()).isEqualTo(TestEnv.getApplication().getAuthor());
