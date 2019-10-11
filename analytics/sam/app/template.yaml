@@ -1,5 +1,20 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: 'AWS::Serverless-2016-10-31'
+Description: >-
+  This application creates analytics component for a backend service.
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: realworld-serverless-application-analytics
+    Description: >-
+      This application creates analytics component for a backend service.
+    Author: AWS Serverless Application Repository
+    SpdxLicenseId: Apache-2.0
+    Labels: [serverless, athena, glue, firehose]
+    HomePageUrl: https://github.com/awslabs/realworld-serverless-application
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.0
+    LicenseUrl: ../../../LICENSE
+    ReadmeUrl: ../../README.md
 
 Parameters:
   Stage:

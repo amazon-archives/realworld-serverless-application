@@ -8,6 +8,10 @@ Parameters:
     Type: String
     Description: The AWS Secrets Manager Secret Id that stores Github OAuth token.
     Default: 'GitHubOAuthToken'
+  GitHubOwner:
+    Type: String
+    Description: The GitHub owner of the repository.
+    Default: 'awslabs'
   ApplicationStackName:
     Type: String
     Description: The stack name the CICD will deploy the application to.
@@ -25,7 +29,7 @@ Resources:
         SemanticVersion: 0.1.3
       Parameters:
         GitHubOAuthToken: !Sub '{{resolve:secretsmanager:${GitHubOAuthTokenSecretId}}}'
-        GitHubOwner: awslabs
+        GitHubOwner: !Ref GitHubOwner
         GitHubRepo: realworld-serverless-application
         DeployStackName: !Ref ApplicationStackName
         DeployRoleName: !Ref DeployRole

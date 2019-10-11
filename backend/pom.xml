@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>software.amazon.serverless</groupId>
   <artifactId>realworld-serverless-application-backend</artifactId>
-  <version>0.1.5</version>
+  <version>1.0.0</version>
 
   <name>realworld-serverless-application-backend</name>
   <url>https://github.com/awslabs/realworld-serverless-application</url>
@@ -103,7 +103,7 @@
     </dependency>
     <dependency>
       <groupId>software.amazon.serverless</groupId>
-      <artifactId>aws-ssm-caching-client</artifactId>
+      <artifactId>aws-ssm-java-caching-client</artifactId>
       <version>1.0.0</version>
     </dependency>
     <dependency>

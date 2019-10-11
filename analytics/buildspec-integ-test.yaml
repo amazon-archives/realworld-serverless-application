@@ -7,9 +7,6 @@ phases:
   build:
     commands:
       - TEST_STAGE=integtests`date +%s`
-      - cd aws-ssm-caching-client
-      - mvn clean install
-      - cd ..
       - cd backend
       - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
       - cd ..
