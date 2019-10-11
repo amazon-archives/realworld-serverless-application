@@ -19,7 +19,6 @@
     <packageBucket>my-bucket</packageBucket>
   </properties>
   <modules>
-    <module>aws-ssm-caching-client</module>
     <module>backend</module>
   </modules>
   <build>
