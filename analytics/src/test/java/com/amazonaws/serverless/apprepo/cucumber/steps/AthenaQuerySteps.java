@@ -99,13 +99,13 @@ public class AthenaQuerySteps {
         String.format("WHERE detail.dynamodb.keys.applicationid.s='%s' limit 10", TestEnv.getApplicationId());
 
     List<Row> rows = Collections.emptyList();
-    int attepmts = 0;
-    while (rows.size() < 2 && attepmts < 10) {
+    int attempts = 0;
+    while (rows.size() < 2 && attempts < 10) {
       log.info("Waiting for Firehose to flush it's buffer into S3...");
       Thread.sleep(30000);
       runAthenaQuery(loadPartitionsQuery);
       rows = runAthenaQuery(createdAppQuery);
-      attepmts++;
+      attempts++;
     }
 
     assertThat(rows.get(1).data().get(0).varCharValue()).isEqualTo("INSERT");
