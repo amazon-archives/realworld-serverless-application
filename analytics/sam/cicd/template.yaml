@@ -30,7 +30,9 @@ Resources:
         DeployStackName: !Ref ApplicationStackName
         DeployRoleName: !Ref DeployRole
         DeployParameterOverrides: !Sub '{"Stage":"${Stage}"}'
+        IntegTestRoleName: !Ref IntegTestsRole
         BuildSpecFilePath: 'analytics/buildspec.yaml'
+        IntegTestBuildSpecFilePath: 'analytics/buildspec-integ-test.yaml'
 
   # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-analytics into CloudFormation
   CloudFormationDeployPolicy:
@@ -38,6 +40,7 @@ Resources:
     Properties:
       Roles:
         - !Ref DeployRole
+        - !Ref IntegTestsRole
       PolicyName: "deploy-create-delete-access"
       PolicyDocument:
         Version: "2012-10-17"
@@ -95,10 +98,21 @@ Resources:
               - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:event-source-mapping:*
           - Effect: Allow
             Action:
+              - glue:BatchCreatePartition
+              - glue:BatchGetPartition
               - glue:CreateDatabase
+              - glue:CreatePartition
+              - glue:CreatePartition
               - glue:CreateTable
               - glue:DeleteDatabase
               - glue:DeleteTable
+              - glue:DeletePartition
+              - glue:BatchDeletePartition
+              - glue:GetPartition
+              - glue:GetPartitions
+              - glue:GetTable
+              - glue:GetTableVersion
+              - glue:UpdatePartition
             Resource:
               - "*"
           - Effect: "Allow"
@@ -159,7 +173,160 @@ Resources:
             Resource:
               - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/*
 
-  # This role is used to deploy realworld-serverless-application-analytics to CloudFormation.
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for aws-serverless-app-repo-reference-backend module into CloudFormation
+  CloudFormationDeployPolicyBackend:
+    Type: AWS::IAM::Policy
+    Properties:
+      Roles:
+        - !Ref IntegTestsRole
+      PolicyName: "deploy-backend-create-delete-access"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - cloudformation:CreateChangeSet
+            Resource:
+              - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/Serverless-2016-10-31
+              - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:aws:transform/Include
+          - Effect: "Allow"
+            Action:
+              - dynamodb:DescribeTable
+              - dynamodb:DeleteTable
+              - dynamodb:CreateTable
+              - dynamodb:UpdateContinuousBackups
+              - dynamodb:DescribeContinuousBackups
+              - dynamodb:UpdateTimeToLive
+              - dynamodb:DescribeTimeToLive
+              - dynamodb:TagResource
+              - dynamodb:ListTagsOfResource
+            Resource:
+              - !Sub arn:${AWS::Partition}:dynamodb:${AWS::Region}:${AWS::AccountId}:table/*
+          - Effect: "Allow"
+            Action:
+              - iam:CreateRole
+              - iam:DeleteRole
+              - iam:GetRole
+              - iam:TagRole
+              - iam:PutRolePolicy
+              - iam:GetRolePolicy
+              - iam:DeleteRolePolicy
+              - iam:AttachRolePolicy
+              - iam:DetachRolePolicy
+              - iam:PassRole
+            Resource:
+              - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:role/*
+          - Effect: "Allow"
+            Action:
+              - apigateway:*
+            Resource:
+              - !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}::/restapis/*
+          - Effect: "Allow"
+            Action:
+              - apigateway:POST
+            Resource:
+              - !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}::/restapis
+          - Effect: "Allow"
+            Action:
+              - apigateway:PATCH
+              - apigateway:GET
+            Resource:
+              - !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}::/account
+          - Effect: "Allow"
+            Action:
+              - codedeploy:CreateApplication
+              - codedeploy:DeleteApplication
+            Resource:
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:application:*
+          - Effect: "Allow"
+            Action:
+              - codedeploy:CreateDeploymentGroup
+              - codedeploy:DeleteDeploymentGroup
+              - codedeploy:CreateDeployment
+            Resource:
+              - !Sub arn:${AWS::Partition}:codedeploy:${AWS::Region}:${AWS::AccountId}:deploymentgroup:*
+          - Effect: "Allow"
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:CreateGrant
+              - kms:DescribeKey
+              - kms:GenerateDataKey
+            Resource:
+              - !Sub arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:aliases/aws/lambda
+          - Effect: "Allow"
+            Action:
+              - lambda:CreateFunction
+              - lambda:GetFunctionConfiguration
+              - lambda:DeleteFunction
+              - lambda:CreateAlias
+              - lambda:GetAlias
+              - lambda:DeleteAlias
+              - lambda:PublishVersion
+              - lambda:ListVersionsByFunction
+              - lambda:AddPermission
+              - lambda:RemovePermission
+            Resource:
+              - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:*
+          - Effect: "Allow"
+            Action:
+              - logs:DescribeLogGroups
+            Resource:
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:*
+          - Effect: "Allow"
+            Action:
+              - logs:CreateLogGroup
+              - logs:DescribeLogGroups
+              - logs:DeleteLogGroup
+              - logs:PutRetentionPolicy
+            Resource:
+              - !Sub arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/apigateway/AccessLog-*
+          - Effect: "Allow"
+            Action:
+              - ssm:PutParameter
+              - ssm:DeleteParameter
+              - ssm:GetParameters
+              - ssm:GetParametersByPath
+              - ssm:AddTagsToResource
+              - ssm:RemoveTagsFromResource
+            Resource:
+              - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/*
+          - Effect: "Allow"
+            Action:
+              - cognito-idp:CreateUserPool
+              - cognito-idp:DeleteUserPool
+            Resource:
+              - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
+          - Effect: "Allow"
+            Action:
+              - cognito-idp:CreateUserPool
+            Resource:
+              - "*"
+          - Effect: "Allow"
+            Action:
+              - cloudwatch:PutMetricAlarm
+              - cloudwatch:DescribeAlarms
+              - cloudwatch:DeleteAlarms
+            Resource:
+              - !Sub arn:${AWS::Partition}:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:*
+          - Effect: "Allow"
+            Action:
+              - kms:CreateKey
+            Resource:
+              - '*'
+          - Effect: "Allow"
+            Action:
+              - kms:PutKeyPolicy
+              - kms:DescribeKey
+              - kms:ScheduleKeyDeletion
+              - kms:EnableKeyRotation
+              - kms:TagResource
+              - kms:UntagResource
+              - kms:ListResourceTags
+            Resource:
+              - !Sub arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:key/*
+
+  # This role is used to deploy aws-serverless-app-repo-reference-ops to CloudFormation.
   DeployRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -198,3 +365,74 @@ Resources:
                   - lambda:UntagResource
                 Resource:
                   - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:*
+  # This role is used to run integration tests in CodeBuild.
+  # In addition to the permissions from CloudFormationDeployPolicy, it also defines permissions that is required by integration tests only.
+  IntegTestsRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Description: !Sub "Runs integration tests in CodeBuild for ${ApplicationStackName}. Created by CloudFormation ${AWS::StackId}"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Principal:
+              Service:
+                - "codebuild.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      Policies:
+        - PolicyName: "cloudformation-access"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - cloudformation:DescribeStacks
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:ExecuteChangeSet
+                  - cloudformation:DescribeChangeSet
+                  - cloudformation:DeleteStack
+                Resource:
+                  - !Sub arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/*
+        - PolicyName: "cognito-access"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - cognito-idp:CreateUserPoolClient
+                  - cognito-idp:DeleteUserPoolClient
+                  - cognito-idp:AdminConfirmSignUp
+                  - cognito-idp:AdminInitiateAuth
+                  - cognito-idp:AdminDeleteUser
+                  - cognito-idp:AdminCreateUser
+                  - cognito-idp:AdminSetUserPassword
+                Resource:
+                  - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
+        - PolicyName: "athena-access"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - athena:StartQueryExecution
+                  - athena:GetQueryExecution
+                  - athena:GetQueryResults
+                  - athena:GetQueryResultsStream
+                Resource:
+                  - "*"
+              - Effect: "Allow"
+                Action:
+                  - s3:GetBucketLocation
+                  - s3:GetObject
+                  - s3:ListBucket
+                  - s3:ListBucketMultipartUploads
+                  - s3:ListMultipartUploadParts
+                  - s3:AbortMultipartUpload
+                  - s3:CreateBucket
+                  - s3:PutObject
+                  - s3:ListBucket
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub arn:${AWS::Partition}:s3:::*
+                  - !Sub arn:${AWS::Partition}:s3:::*/*

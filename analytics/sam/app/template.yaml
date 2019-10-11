@@ -99,7 +99,7 @@ Resources:
               - glue:GetTableVersions
             Effect: Allow
             Resource:
-              - !Sub arn:aws:glue:${AWS::Region}:${AWS::AccountId}:*
+              - "*"
           - Effect: Allow
             Action: logs:PutLogEvents
             Resource: !GetAtt FirehoseLogGroup.Arn
@@ -227,3 +227,11 @@ Resources:
       Type: "String"
       Value: !Ref GlueTable
       Description: "Analytics applications table name"
+
+  DataBucketName:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/applications/apprepo/${Stage}/s3/DataBucket/Name"
+      Type: "String"
+      Value: !Ref DataBucket
+      Description: "DataBucket bucket name"
