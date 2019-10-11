@@ -116,7 +116,7 @@ public class AthenaQuerySteps {
 
 
   private List<Row> runAthenaQuery(final String query) {
-    log.error("Running Athena query: {}", query);
+    log.info("Running Athena query: {}", query);
     StartQueryExecutionResponse startQueryExecutionResponse = athenaClient.startQueryExecution(StartQueryExecutionRequest.builder()
         .queryString(query)
         .resultConfiguration(ResultConfiguration.builder()
@@ -128,7 +128,9 @@ public class AthenaQuerySteps {
     String queryExecutionId = startQueryExecutionResponse.queryExecutionId();
 
     waitForQueryToComplete(queryExecutionId);
-    return getResultRows(queryExecutionId);
+    List<Row> resultRows = getResultRows(queryExecutionId);
+    log.info("Query results: {}", resultRows);
+    return resultRows;
   }
 
   @SneakyThrows(InterruptedException.class)

@@ -34,7 +34,7 @@ Resources:
         BuildSpecFilePath: 'analytics/buildspec.yaml'
         IntegTestBuildSpecFilePath: 'analytics/buildspec-integ-test.yaml'
 
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-analytics into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for analytics component into CloudFormation
   CloudFormationDeployPolicy:
     Type: AWS::IAM::Policy
     Properties:
@@ -174,7 +174,7 @@ Resources:
             Resource:
               - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/applications/apprepo/*
 
-  # This policy defines the minimum IAM permissions required to Create and Delete a stack for aws-serverless-app-repo-reference-backend module into CloudFormation
+  # This policy defines the minimum IAM permissions required to Create and Delete a stack for backend component into CloudFormation
   CloudFormationDeployPolicyBackend:
     Type: AWS::IAM::Policy
     Properties:
@@ -326,8 +326,8 @@ Resources:
               - kms:ListResourceTags
             Resource:
               - !Sub arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:key/*
-
-  # This role is used to deploy aws-serverless-app-repo-reference-ops to CloudFormation.
+  # This role is used to deploy analytics to CloudFormation.
+  # In addition to the permissions from CloudFormationDeployPolicy, it also defines permissions that are required to update the stack in CloudFormation
   DeployRole:
     Type: "AWS::IAM::Role"
     Properties:
