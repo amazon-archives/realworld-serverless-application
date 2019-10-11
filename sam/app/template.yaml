@@ -13,8 +13,8 @@ Metadata:
     SpdxLicenseId: Apache-2.0
     Labels: [github, serverless, sam]
     HomePageUrl: https://github.com/awslabs/realworld-serverless-application
-    SemanticVersion: 0.1.5
-    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/0.1.5
+    SemanticVersion: 1.0.0
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.0
     LicenseUrl: ../../LICENSE
     ReadmeUrl: ../../README.md
 
