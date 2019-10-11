@@ -47,7 +47,7 @@ generate_sdk() {
         --rest-api-id ${REST_API_ID} \
         --stage-name Prod \
         --sdk-type java \
-        --parameters service.name='AWSServerlessApplicationRepository',java.package-name='software.amazon.serverless.apprepo.api.client' ${ZIP_PATH}
+        --parameters service.name='AWSServerlessApplicationRepository',java.package-name='com.amazonaws.serverless.apprepo.api.client' ${ZIP_PATH}
 
     UNZIP_DIR=${MODULE_DIR}/target/sdk
     echo "Unzipping SDK zip to directory ${UNZIP_DIR}"

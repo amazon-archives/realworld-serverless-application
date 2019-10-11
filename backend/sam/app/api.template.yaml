@@ -75,7 +75,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: '../../target/realworld-serverless-application-backend-0.1.5.jar'
-      Handler: 'software.amazon.serverless.apprepo.container.ApiLambdaHandler::handleRequest'
+      Handler: 'com.amazonaws.serverless.apprepo.container.ApiLambdaHandler::handleRequest'
       MemorySize: 1536
       Timeout: 30
       Runtime: java8
