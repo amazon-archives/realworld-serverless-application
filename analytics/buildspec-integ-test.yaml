@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+  build:
+    commands:
+      - TEST_STAGE=integtests`date +%s`
+      - cd aws-ssm-caching-client
+      - mvn clean install
+      - cd ..
+      - cd backend
+      - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
+      - cd ..
+      - ./bin/deploy.sh -n $TEST_STAGE-backend -t backend/target/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
+      - cd analytics
+      - mvn clean verify -Dintegtests.stage=${TEST_STAGE} -DpackageBucket=${PACKAGE_BUCKET}
+    finally:
+      - cd $CODEBUILD_SRC_DIR
+#     Cleanup commands end with "|| true" to ensure that all of them are executed. It's ok if they fail trying to delete a resource that was never created due to a build phase error.
+      - ./bin/delete-stack.sh -n $TEST_STAGE-backend || true

@@ -54,11 +54,14 @@ generate_sdk() {
     mkdir -p ${UNZIP_DIR}
     unzip ${ZIP_PATH} -d ${UNZIP_DIR}
 
-    echo "Copying generated SDK to test source directory"
-    rsync -avr --exclude=${UNZIP_DIR}/generated-code/pom.xml \
+    for component in backend analytics
+    do
+      echo "Copying generated SDK to ${component} test source directory"
+      rsync -avr --exclude=${UNZIP_DIR}/generated-code/pom.xml \
                --exclude=${UNZIP_DIR}/generated-code/README.html \
                --exclude=${UNZIP_DIR}/generated-code/README.md \
-               ${UNZIP_DIR}/generated-code/src/main/* ${MODULE_DIR}/src/test/
+               ${UNZIP_DIR}/generated-code/src/main/* ${MODULE_DIR}/${component}/src/test/
+    done
 }
 
 main() {
