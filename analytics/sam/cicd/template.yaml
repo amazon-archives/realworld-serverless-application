@@ -98,6 +98,7 @@ Resources:
               - !Sub arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:event-source-mapping:*
           - Effect: Allow
             Action:
+              - glue:*
               - glue:BatchCreatePartition
               - glue:BatchGetPartition
               - glue:CreateDatabase
