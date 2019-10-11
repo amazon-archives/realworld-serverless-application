@@ -6,7 +6,7 @@ This project is an adaptation of the [AWS Serverless Application Repository](htt
 
 To get started, see the [Quickstart](https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/wiki/Quick-Start) guide. For more details, see our documentation in the [Wiki](https://github.com/awslabs/aws-serverless-app-repo-reference-implementation/wiki) section of the GitHub repository.
 
-For more information,Here are some project level references:
+For more information, here are some project level references:
 1. [Overview]()(TODO: blog post link)
 1. [Best Practices](https://github.com/awslabs/realworld-serverless-application/wiki/Best-Practices)
 
