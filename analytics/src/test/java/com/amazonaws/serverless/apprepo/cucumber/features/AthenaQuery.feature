@@ -1,5 +1,5 @@
-Feature: CreateApplication
-  As a user, I would like to create an application.
+Feature: Analyze Data
+  As an administrator, I would like to analyze the customer usage of the service
 
   Scenario: User creates an application
     When a user creates an application
