@@ -2,7 +2,7 @@
 
 This project is an adaptation of the [AWS Serverless Application Repository](https://aws.amazon.com/serverless/serverlessrepo/). Its primary objective is to serve as a case study of how to build a real world application using a combination of serverless technologies and approaches. The project captures key architectural components, code structure, deployment techniques, testing approaches, and operational practices of the AWS Serverless Application Repository - a production-grade AWS service, written in Java and built using serverless technologies. It is comprised of 4 components.
 
-![Architecture Diagram](./images/architecture_diagram.png)
+![Architecture Diagram](https://github.com/awslabs/realworld-serverless-application/raw/master/images/architecture_diagram.png)
 
 To get started, see the [Quick Start](https://github.com/awslabs/realworld-serverless-application/wiki/Quick-Start) guide. For more details, read our [blog post]() (TODO: blog post link) and see our [project wiki](https://github.com/awslabs/realworld-serverless-application/wiki).
 
