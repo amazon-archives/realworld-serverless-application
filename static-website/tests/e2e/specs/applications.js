@@ -64,6 +64,7 @@ module.exports = {
   'Application details': (browser) => {
     const testApp = browser.globals.testData.app;
     browser.url(`${browser.launchUrl}/#/applications/${testApp.name}`);
+    browser.page.appDetails().waitForElementVisible('@editBtn');
 
     browser.page.appDetails().assert.containsText('@details', testApp.name);
     browser.page.appDetails().assert.containsText('@details', testApp.author);
@@ -73,6 +74,8 @@ module.exports = {
   'My applications': (browser) => {
     const testApp = browser.globals.testData.app;
     browser.url(`${browser.launchUrl}/#/applications`);
+
+    browser.page.myApps().waitForElementVisible('@appsTableRows');
 
     browser.page.myApps().assert.containsText('@appsTable', testApp.name);
     browser.page.myApps().assert.containsText('@appsTable', testApp.description);
