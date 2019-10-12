@@ -83,6 +83,7 @@ Resources:
               - firehose:CreateDeliveryStream
               - firehose:DeleteDeliveryStream
               - firehose:DescribeDeliveryStream
+              - firehose:UpdateDestination
             Resource:
               - !Sub arn:${AWS::Partition}:firehose:${AWS::Region}:${AWS::AccountId}:deliverystream/*
           - Effect: Allow
