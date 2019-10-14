@@ -4,7 +4,7 @@ This project is an adaptation of the [AWS Serverless Application Repository](htt
 
 ![Architecture Diagram](https://github.com/awslabs/realworld-serverless-application/raw/master/images/architecture_diagram.png)
 
-To get started, see the [Quick Start](https://github.com/awslabs/realworld-serverless-application/wiki/Quick-Start) guide. For more details, read our [blog post]() (TODO: blog post link) and see our [project wiki](https://github.com/awslabs/realworld-serverless-application/wiki).
+To get started, see the [Quick Start](https://github.com/awslabs/realworld-serverless-application/wiki/Quick-Start) guide. For more details, read our [blog post](https://aws.amazon.com/blogs/opensource/real-world-serverless-application) and see our [project wiki](https://github.com/awslabs/realworld-serverless-application/wiki).
 
 ## License
 
