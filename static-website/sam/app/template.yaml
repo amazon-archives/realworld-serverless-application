@@ -105,8 +105,6 @@ Resources:
   CognitoClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
-      ExplicitAuthFlows:
-        - USER_PASSWORD_AUTH
       ClientName: static-website
       GenerateSecret: false
       RefreshTokenValidity: 30
