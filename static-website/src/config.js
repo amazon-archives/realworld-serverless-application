@@ -9,5 +9,4 @@ export const SAR_API_ENDPOINT = '${SAR_BACKEND_ENDPOINT}';
 export const COGNITO_USER_POOL_DATA = {
   userPoolId: '${USER_POOL_ID}',
   userPoolWebClientId: '${USER_POOL_WEB_CLIENT_ID}',
-  authenticationFlowType: 'USER_PASSWORD_AUTH',
 };
