@@ -130,6 +130,7 @@ Resources:
             Action:
               - cognito-idp:CreateUserPoolClient
               - cognito-idp:DeleteUserPoolClient
+              - cognito-idp:UpdateUserPoolClient
             Resource:
               - !Sub arn:${AWS::Partition}:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/*
   # This policy defines the minimum IAM permissions required to Create and Delete a stack for realworld-serverless-application-static-website into CloudFormation
