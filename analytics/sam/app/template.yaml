@@ -182,6 +182,7 @@ Resources:
 
   Firehose:
     Type: AWS::KinesisFirehose::DeliveryStream
+    DependsOn: FirehoseToS3Policy
     Properties:
       DeliveryStreamType: DirectPut
       ExtendedS3DestinationConfiguration:
