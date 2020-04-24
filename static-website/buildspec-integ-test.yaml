@@ -19,6 +19,7 @@ phases:
       - COGNITO_USER_POOL_ID=$(aws ssm get-parameter --name /applications/apprepo/$TEST_STAGE/cognito/userpool/ApplicationsApi/Id --query Parameter.Value --output text)
       - cd static-website
       - echo "Running tests in Chrome"
+      - google-chrome --version
       - npm run test:e2e -- -e chrome
       - echo "Running tests in Firefox"
       - npm run test:e2e -- -e firefox
