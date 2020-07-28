@@ -12,9 +12,9 @@ phases:
       - TEST_STAGE=integ-tests-`date +%s`
       - ./static-website/bin/package-static-website.sh
       - mvn clean package -DpackageBucket=${PACKAGE_BUCKET}
-      - ./bin/deploy.sh -n $TEST_STAGE-backend -t backend/target/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
+      - ./bin/deploy.sh -n $TEST_STAGE-backend -t backend/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
       - ./bin/package.sh -n static-website
-      - ./bin/deploy.sh -n $TEST_STAGE-website -t static-website/target/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
+      - ./bin/deploy.sh -n $TEST_STAGE-website -t static-website/sam/app/packaged-template.yaml -o "Stage=$TEST_STAGE"
       - WEBSITE_URL=$(aws ssm get-parameter --name /applications/apprepo/$TEST_STAGE/s3/WebsiteBucket/WebsiteURL --query Parameter.Value --output text)
       - COGNITO_USER_POOL_ID=$(aws ssm get-parameter --name /applications/apprepo/$TEST_STAGE/cognito/userpool/ApplicationsApi/Id --query Parameter.Value --output text)
       - cd static-website
