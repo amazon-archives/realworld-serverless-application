@@ -61,7 +61,7 @@ Resources:
       Name: !Sub "/applications/apprepo/${Stage}/ddb/Applications/TableArn"
       Type: "String"
       Value: !GetAtt Applications.Arn
-      Description: "Applications Table name"
+      Description: "Applications Table ARN"
   ApplicationsTableStreamArn:
     Type: "AWS::SSM::Parameter"
     Properties:
