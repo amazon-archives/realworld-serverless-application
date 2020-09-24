@@ -26,7 +26,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:646794253159:applications/aws-sam-codepipeline-cd
-        SemanticVersion: 0.1.4
+        SemanticVersion: 0.1.3
       Parameters:
         GitHubOAuthToken: !Sub '{{resolve:secretsmanager:${GitHubOAuthTokenSecretId}}}'
         GitHubOwner: !Ref GitHubOwner
