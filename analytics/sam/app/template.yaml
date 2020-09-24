@@ -29,7 +29,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:646794253159:applications/aws-dynamodb-stream-eventbridge-fanout
-        SemanticVersion: 1.0.1
+        SemanticVersion: 1.0.2
       Parameters:
         DynamoDBStreamArn: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/ddb/Applications/StreamArn:1}}'
 
