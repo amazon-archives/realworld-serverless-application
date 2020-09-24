@@ -12,8 +12,8 @@ Metadata:
     SpdxLicenseId: Apache-2.0
     Labels: [github, serverless, sam]
     HomePageUrl: https://github.com/awslabs/realworld-serverless-application
-    SemanticVersion: 1.0.0
-    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.0
+    SemanticVersion: 1.0.1
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.1
     LicenseUrl: ../../../LICENSE
     ReadmeUrl: ../../README.md
 
@@ -35,7 +35,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:375983427419:applications/deploy-to-s3
-        SemanticVersion: 2.2.0
+        SemanticVersion: 2.2.1
 
   # this function is used only during deployment,
   # we use the web site assets as the source of the function

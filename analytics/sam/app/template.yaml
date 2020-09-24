@@ -11,8 +11,8 @@ Metadata:
     SpdxLicenseId: Apache-2.0
     Labels: [serverless, athena, glue, firehose]
     HomePageUrl: https://github.com/awslabs/realworld-serverless-application
-    SemanticVersion: 1.0.0
-    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.0
+    SemanticVersion: 1.0.1
+    SourceCodeUrl: https://github.com/awslabs/realworld-serverless-application/tree/1.0.1
     LicenseUrl: ../../../LICENSE
     ReadmeUrl: ../../README.md
 
@@ -29,7 +29,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:646794253159:applications/aws-dynamodb-stream-eventbridge-fanout
-        SemanticVersion: 1.0.0
+        SemanticVersion: 1.0.1
       Parameters:
         DynamoDBStreamArn: !Sub '{{resolve:ssm:/applications/apprepo/${Stage}/ddb/Applications/StreamArn:1}}'
 
