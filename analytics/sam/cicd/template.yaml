@@ -147,6 +147,7 @@ Resources:
               - sqs:DeleteQueue
               - sqs:TagQueue
               - sqs:GetQueueAttributes
+              - sqs:SetQueueAttributes
             Resource:
               - !Sub arn:${AWS::Partition}:sqs:${AWS::Region}:${AWS::AccountId}:*
           - Effect: Allow
