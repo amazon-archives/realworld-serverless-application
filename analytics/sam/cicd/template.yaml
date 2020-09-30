@@ -265,6 +265,7 @@ Resources:
             Action:
               - lambda:CreateFunction
               - lambda:GetFunctionConfiguration
+              - lambda:GetFunction
               - lambda:DeleteFunction
               - lambda:CreateAlias
               - lambda:GetAlias
