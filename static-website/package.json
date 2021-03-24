@@ -49,6 +49,7 @@
     "uuid": "^3.4.0",
     "vue-cli-plugin-bootstrap-vue": "^0.4.0",
     "vue-template-compiler": "^2.6.11",
-    "ssri": ">=8.0.1"
+    "ssri": ">=8.0.1",
+    "is-svg": ">=4.2.2"
   }
 }
