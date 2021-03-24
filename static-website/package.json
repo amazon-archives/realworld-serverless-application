@@ -29,7 +29,7 @@
     "@vue/cli-plugin-babel": "^3.12.1",
     "@vue/cli-plugin-eslint": "^3.12.1",
     "@vue/cli-plugin-unit-mocha": "^4.5.4",
-    "@vue/cli-service": "^4.5.4",
+    "@vue/cli-service": "^4.5.12",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "1.0.0-beta.29",
     "aws-sdk": "^2.698.0",
@@ -48,6 +48,7 @@
     "sinon-chai": "^3.5.0",
     "uuid": "^3.4.0",
     "vue-cli-plugin-bootstrap-vue": "^0.4.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "ssri": ">=8.0.1"
   }
 }
